@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/background_bottom_nav_bar.xml" value="0.2985" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/background_bu_list_products.xml" value="0.175" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/background_button_orange.xml" value="0.2985" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/background_item_bottom_nav_bar.xml" value="0.22" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/background_item_bottom_nav_view.xml" value="0.2985" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.2985" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/item_bottom_nav.xml" value="0.1925" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/scanner.xml" value="0.2985" />
-        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_main.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_splash_screen.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/menu/menu.xml" value="0.536" />
       </map>

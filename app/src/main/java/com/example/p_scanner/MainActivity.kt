@@ -1,29 +1,31 @@
 package com.example.p_scanner
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import com.example.p_scanner.databinding.ActivityMainBinding
-import com.example.p_scanner.databinding.ActivitySplashScreenBinding
-import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bottomNavigationView.itemIconTintList = null
+        binding.buScanner.setOnClickListener {
+            binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)
+            binding.buListProducts.setBackgroundColor(android.R.color.transparent)
+            binding.buListProducts.setColorFilter(Color.parseColor("#BBBBBB"))
+            binding.buScanner.setColorFilter(Color.parseColor("#5A6CF3"))
+        }
 
-        binding.bottomNavigationView.setOnItemSelectedListener(object :NavigationBarView.OnItemSelectedListener{
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                return true
-            }
-        })
-        binding.bottomNavigationView.setOnItemReselectedListener(object :NavigationBarView.OnItemReselectedListener{
-            override fun onNavigationItemReselected(item: MenuItem) {
-            }
-        })
+        binding.buListProducts.setOnClickListener {
+            binding.buListProducts.setBackgroundResource(R.drawable.background_bu_list_products)
+            binding.buScanner.setBackgroundColor(android.R.color.transparent)
+            binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))
+            binding.buListProducts.setColorFilter(Color.parseColor("#F08F5F"))
+        }
     }
 }
