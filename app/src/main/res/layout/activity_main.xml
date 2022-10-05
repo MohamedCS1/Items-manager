@@ -7,30 +7,43 @@
     android:background="#FFF7F6"
     tools:context=".MainActivity">
 
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_bottom_nav_bar"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:background="@drawable/background_bottom_nav_bar"
         app:layout_constraintStart_toStartOf="parent">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
+
             <ImageView
                 android:id="@+id/bu_scanner"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                android:src="@drawable/icon_scanner"
-                app:tint="@color/my_purple"
-                android:padding="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
                 android:background="@drawable/background_bu_scanner"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"/>
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/icon_scanner"
+                app:tint="@color/my_purple" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,14 +51,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-        <ImageView
-            android:id="@+id/bu_list_products"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:src="@drawable/icon_list"
-            android:padding="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"/>
+
+            <ImageView
+                android:id="@+id/bu_list_products"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/icon_list" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
