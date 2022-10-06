@@ -20,6 +20,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
         binding.buStart.setOnClickListener {
             startActivity(Intent(this ,MainActivity::class.java))
+
+            checkCameraPermission()
         }
     }
 
@@ -35,7 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun checkIfCameraPermissionIsGranted() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            startCamera()
+            startActivity(Intent(this ,MainActivity::class.java))
         } else {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Permission required")

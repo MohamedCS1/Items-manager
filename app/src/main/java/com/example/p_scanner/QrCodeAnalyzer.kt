@@ -2,19 +2,17 @@ package com.example.p_scanner
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.coroutines.currentCoroutineContext
 import java.lang.Exception
-import kotlin.coroutines.coroutineContext
 
 class QrCodeAnalyzer(val context:Context): ImageAnalysis.Analyzer {
     @SuppressLint("UnsafeOptInUsageError")
@@ -41,7 +39,7 @@ class QrCodeAnalyzer(val context:Context): ImageAnalysis.Analyzer {
                 })
                 .addOnFailureListener(object :OnFailureListener{
                     override fun onFailure(p0: Exception) {
-                        TODO("Not yet implemented")
+                        Log.e("" ,p0.toString())
                     }
                 })
         }
