@@ -12,6 +12,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.p_scanner.databinding.FragmentScanningBinding
+import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -28,25 +29,26 @@ class ScanningFragment : Fragment() {
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
+    lateinit var qrCodeAnalyzer: QrCodeAnalyzer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
         binding = FragmentScanningBinding.inflate(layoutInflater)
-    }
+        qrCodeAnalyzer = QrCodeAnalyzer(requireContext())
 
-
-    override fun onResume() {
+        qrCodeAnalyzer.onBarCodeDetection(object :BarCodeInterfaces{
+            override fun onBarCodeDetection(barcode: Barcode) {
+                binding.textView.text = barcode.toString()
+            }
+        })
         cameraExecutor = Executors.newSingleThreadExecutor()
-
         startCamera()
-        super.onResume()
     }
+
 
 
     override fun onCreateView(
@@ -77,7 +79,7 @@ class ScanningFragment : Fragment() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(requireContext()))
+                    it.setAnalyzer(cameraExecutor, qrCodeAnalyzer)
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
