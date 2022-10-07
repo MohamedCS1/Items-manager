@@ -1,11 +1,14 @@
 package com.example.p_scanner
 
+import android.app.Activity
 import android.content.Context
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -29,7 +32,9 @@ class ScanningFragment : Fragment() {
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
-    lateinit var qrCodeAnalyzer: QrCodeAnalyzer
+    var qrCodeAnalyzer: QrCodeAnalyzer? = null
+    lateinit var barcodeBoxView: BarcodeBoxView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,15 +43,21 @@ class ScanningFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         binding = FragmentScanningBinding.inflate(layoutInflater)
-        qrCodeAnalyzer = QrCodeAnalyzer(requireContext())
 
-        qrCodeAnalyzer.onBarCodeDetection(object :BarCodeInterfaces{
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
+        barcodeBoxView = BarcodeBoxView(requireContext())
+
+        (requireContext() as Activity).addContentView(barcodeBoxView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+
+        qrCodeAnalyzer?.onBarCodeDetection(object :BarCodeInterfaces{
             override fun onBarCodeDetection(barcode: Barcode) {
                 binding.textView.text = barcode.toString()
             }
         })
-        cameraExecutor = Executors.newSingleThreadExecutor()
+
         startCamera()
+
     }
 
 
@@ -54,7 +65,11 @@ class ScanningFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
+        binding.buTorch.setOnClickListener {
+
+        }
         return binding.root
     }
 
@@ -79,7 +94,12 @@ class ScanningFragment : Fragment() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, qrCodeAnalyzer)
+                    it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(
+                        requireContext(),
+                        BarcodeBoxView(requireContext()),
+                        binding.previewView.width.toFloat(),
+                        binding.previewView.height.toFloat()
+                    ))
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
