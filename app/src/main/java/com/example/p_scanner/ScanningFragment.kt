@@ -2,7 +2,6 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,8 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
+import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.databinding.FragmentScanningBinding
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
@@ -31,7 +32,7 @@ class ScanningFragment : Fragment()  {
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
-    var qrCodeAnalyzer: QrCodeAnalyzer? = null
+    var barCodeAnalyzer: BarCodeAnalyzer? = null
 
     var animator: ObjectAnimator? = null
 
@@ -46,20 +47,21 @@ class ScanningFragment : Fragment()  {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        qrCodeAnalyzer?.onBarCodeDetection(object :BarCodeInterfaces{
+        barCodeAnalyzer?.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
+
             }
         })
 
-        val vto = binding.scannerLayout.viewTreeObserver
+        val viewTreeObserver = binding.scannerLayout.viewTreeObserver
 
-        vto.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+        viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
             override fun onGlobalLayout() {
                 binding.scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
                 animator = ObjectAnimator.ofFloat(
                     binding.scannerBar, "translationY",
-                    binding.scannerLayout.y,
+                    binding.scannerLayout.y-20,
                     (binding.scannerLayout.y +
                             binding.scannerLayout.height))
 
@@ -111,9 +113,10 @@ class ScanningFragment : Fragment()  {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(
+                    it.setAnalyzer(cameraExecutor, BarCodeAnalyzer(
                         requireContext()
-                    ))
+                    )
+                    )
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA

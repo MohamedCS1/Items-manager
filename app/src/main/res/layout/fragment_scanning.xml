@@ -30,7 +30,7 @@
 
             <View
                 android:id="@+id/left"
-                android:layout_width="40dp"
+                android:layout_width="@dimen/_30sdp"
                 android:layout_height="match_parent"
                 android:background="@color/semitransparent" />
 
@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
+                android:layout_margin="@dimen/_8sdp"
                 android:layout_toStartOf="@+id/right"
                 android:layout_toLeftOf="@id/right"
                 android:layout_toEndOf="@+id/left"
@@ -51,7 +52,7 @@
                 <View
                     android:id="@+id/scannerBar"
                     android:layout_width="match_parent"
-                    android:layout_height="5dp"
+                    android:layout_height="@dimen/_4sdp"
                     android:background="@color/colorPrimary" />
 
 
@@ -60,7 +61,7 @@
 
             <View
                 android:id="@+id/right"
-                android:layout_width="40dp"
+                android:layout_width="@dimen/_30sdp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"

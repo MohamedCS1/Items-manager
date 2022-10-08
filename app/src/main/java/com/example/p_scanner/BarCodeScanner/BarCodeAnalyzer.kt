@@ -1,23 +1,20 @@
-package com.example.p_scanner
+package com.example.p_scanner.BarCodeScanner
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
+import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 
-class QrCodeAnalyzer(
+class BarCodeAnalyzer(
     private val context: Context
 ) : ImageAnalysis.Analyzer {
-    lateinit var barCodeInterfaces:BarCodeInterfaces
+    lateinit var barCodeInterfaces: BarCodeInterfaces
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(image: ImageProxy) {
