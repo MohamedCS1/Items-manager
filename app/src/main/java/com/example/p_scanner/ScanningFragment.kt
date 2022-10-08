@@ -1,39 +1,39 @@
 package com.example.p_scanner
 
-import android.app.Activity
-import android.content.Context
-import android.hardware.camera2.CameraManager
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import android.view.ViewTreeObserver
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.p_scanner.databinding.FragmentScanningBinding
 import com.google.mlkit.vision.barcode.common.Barcode
-import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class ScanningFragment : Fragment() {
+class ScanningFragment : Fragment()  {
     private var param1: String? = null
     private var param2: String? = null
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
     var qrCodeAnalyzer: QrCodeAnalyzer? = null
-    lateinit var barcodeBoxView: BarcodeBoxView
+
+    var animator: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +46,28 @@ class ScanningFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        barcodeBoxView = BarcodeBoxView(requireContext())
-
-        (requireContext() as Activity).addContentView(barcodeBoxView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-
         qrCodeAnalyzer?.onBarCodeDetection(object :BarCodeInterfaces{
             override fun onBarCodeDetection(barcode: Barcode) {
-                binding.textView.text = barcode.toString()
+            }
+        })
+
+        val vto = binding.scannerLayout.viewTreeObserver
+
+        vto.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                binding.scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                animator = ObjectAnimator.ofFloat(
+                    binding.scannerBar, "translationY",
+                    binding.scannerLayout.y,
+                    (binding.scannerLayout.y +
+                            binding.scannerLayout.height))
+
+                animator!!.repeatMode = ValueAnimator.REVERSE
+                animator!!.repeatCount = ValueAnimator.INFINITE
+                animator!!.interpolator = AccelerateDecelerateInterpolator()
+                animator!!.duration = 3000
+                animator!!.start()
             }
         })
 
@@ -66,12 +81,14 @@ class ScanningFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding.buTorch.setOnClickListener {
-
-        }
+//
+//        binding.buTorch.setOnClickListener {
+//
+//        }
         return binding.root
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -95,10 +112,7 @@ class ScanningFragment : Fragment() {
                 .build()
                 .also {
                     it.setAnalyzer(cameraExecutor, QrCodeAnalyzer(
-                        requireContext(),
-                        BarcodeBoxView(requireContext()),
-                        binding.previewView.width.toFloat(),
-                        binding.previewView.height.toFloat()
+                        requireContext()
                     ))
                 }
 

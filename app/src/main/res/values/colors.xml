@@ -14,5 +14,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="my_orange">#F08F5F</color>
     <color name="my_purple">#5A6CF3</color>
+    <color name="semitransparent">#44444444</color>
+    <color name="colorPrimary">#F08F5F</color>
 
 </resources>
