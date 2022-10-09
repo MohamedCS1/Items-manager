@@ -46,15 +46,18 @@ class ScanningFragment : Fragment()  {
         }
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        barCodeAnalyzer = BarCodeAnalyzer(requireContext())
 
-        barCodeAnalyzer?.onBarCodeDetection(object : BarCodeInterfaces {
+        barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
                 val intent = Intent(requireContext() ,AddProductActivity::class.java)
                 intent.putExtra("ProductID" ,barcode.rawValue.toString())
                 startActivity(intent)
             }
         })
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
 
         val viewTreeObserver = binding.scannerLayout.viewTreeObserver
 
@@ -93,6 +96,10 @@ class ScanningFragment : Fragment()  {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        cameraExecutor.shutdown()
+    }
 
 
     override fun onDestroy() {

@@ -14,7 +14,7 @@ abstract class ProductsDatabase:RoomDatabase() {
     fun getDatabase(context: Context):ProductsDatabase{
         return INSTANSE ?: synchronized(this){
             val instanse = Room.databaseBuilder(
-                context.applicationContext ,ProductsDatabase::class.java ,"Product Databse"
+                context.applicationContext ,ProductsDatabase::class.java ,"Product Database"
             ).build()
             INSTANSE = instanse
             instanse
