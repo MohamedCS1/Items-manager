@@ -93,13 +93,22 @@ class ScanningFragment : Fragment()  {
 //        binding.buTorch.setOnClickListener {
 //
 //        }
+
         return binding.root
     }
+
 
     override fun onPause() {
         super.onPause()
         cameraExecutor.shutdown()
     }
+
+    override fun onStart() {
+        super.onStart()
+        cameraExecutor = Executors.newSingleThreadExecutor()
+        startCamera()
+    }
+
 
 
     override fun onDestroy() {

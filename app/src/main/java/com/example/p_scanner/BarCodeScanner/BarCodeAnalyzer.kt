@@ -37,6 +37,7 @@ class BarCodeAnalyzer(
                             val intent = Intent(context , AddProductActivity::class.java)
                             intent.putExtra("ProductID" ,barcodes[0].rawValue.toString())
                             context.startActivity(intent)
+                        return@addOnSuccessListener
                     }
                 }
                 .addOnFailureListener { }
