@@ -16,10 +16,11 @@
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/item_bottom_nav.xml" value="0.1925" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/qr_code_reader_square.xml" value="0.188" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/scanner.xml" value="0.2985" />
-        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_add_product.xml" value="0.264" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_add_product.xml" value="0.42203389830508475" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_splash_screen.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_test.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/card_product.xml" value="0.19375" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/fragment_list_products.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/fragment_scanning.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/menu/menu.xml" value="0.536" />

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         scanningFragment = ScanningFragment()
         listProductsFragment = ListProductsFragment()
 
-
+        setFragment(scanningFragment)
         binding.buScanner.setOnClickListener {
             binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)
             binding.buListProducts.setBackgroundColor(android.R.color.transparent)

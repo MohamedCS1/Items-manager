@@ -20,9 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_back"
-            android:background="@drawable/background_button_orange"
+            android:background="@drawable/background_bu_list_products"
             android:padding="@dimen/_5sdp"
-            android:backgroundTint="#F8F8FB"
+            android:textColorHint="#424D59"
             app:tint="@color/my_orange"
             android:elevation="@dimen/_4sdp"
             android:translationZ="@dimen/_1sdp"
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:textColor="@color/black"
+            android:textColor="#363636"
             android:textStyle="bold"
             android:layout_gravity="start"/>
 
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What kind of item would you like to add ?"
-            android:textColor="@color/black"
+            android:textColor="#3A3C3F"
             android:textStyle="bold"
             android:layout_gravity="start"/>
 
@@ -65,13 +65,13 @@
                     android:layout_height="wrap_content"
                     android:text="Service"
                     android:buttonTint="@color/black"
-                    android:textColor="@color/black"
+                    android:textColor="#3A3C3F"
                     android:layout_marginEnd="@dimen/_10sdp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product"
-                    android:textColor="@color/black"
+                    android:textColor="#3A3C3F"
                     android:buttonTint="@color/black"
                     android:layout_marginStart="@dimen/_10sdp"/>
             </RadioGroup>
@@ -85,7 +85,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
-            android:textColor="@color/black"/>
+            android:textColor="#3A3C3F"/>
 
         <EditText
             android:id="@+id/tv_id"
@@ -106,7 +106,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
-            android:textColor="@color/black"/>
+            android:textColor="#3A3C3F"/>
         <EditText
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
             android:hint="Title or name the product"
-            android:textColorHint="#9E000000"
+            android:textColorHint="#424D59"
             android:layout_marginBottom="@dimen/_20sdp"/>
 
         <TextView
@@ -126,7 +126,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
-            android:textColor="@color/black"/>
+            android:textColor="#3A3C3F"/>
 
         <EditText
             android:id="@+id/tv_description"
@@ -138,7 +138,7 @@
             android:padding="@dimen/_10sdp"
             android:hint="Discribe your product"
             android:gravity="start"
-            android:textColorHint="#9E000000"
+            android:textColorHint="#424D59"
             android:layout_marginBottom="@dimen/_20sdp"/>
 
         <TextView
@@ -148,7 +148,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
-            android:textColor="@color/black"/>
+            android:textColor="#3A3C3F"/>
 
         <EditText
             android:id="@+id/tv_price"
@@ -159,7 +159,7 @@
             android:textColor="@color/black"
             android:padding="@dimen/_10sdp"
             android:hint="Enter amount"
-            android:textColorHint="#9E000000"
+            android:textColorHint="#424D59"
             android:inputType="number"
             android:layout_marginBottom="@dimen/_20sdp"/>
 
