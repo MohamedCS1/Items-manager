@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var listProductsFragment: ListProductsFragment
     lateinit var searchFragment: SearchFragment
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buSearch.setOnClickListener {
-            binding.buSearch.setBackgroundResource(R.drawable.background_bu_list_products)
+            binding.buSearch.setBackgroundResource(R.drawable.background_bu_search)
             binding.buSearch.setColorFilter(Color.parseColor("#2DC0FF"))
             binding.buScanner.setBackgroundColor(android.R.color.transparent)
             binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))
