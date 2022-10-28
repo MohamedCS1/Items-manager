@@ -17,8 +17,11 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
+import com.example.p_scanner.Database.ProductsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
+import com.example.p_scanner.Pojo.Product
 import com.example.p_scanner.databinding.FragmentScanningBinding
 import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -37,14 +40,20 @@ class SearchFragment : Fragment() {
         super.onCreate(savedInstanceState)
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
+        val db = ProductsDatabase.getDatabase(requireContext())
+
+        val productDAO = db.productDAO()
+
         barCodeAnalyzer = BarCodeAnalyzer(requireContext())
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
+                productDAO.getProductById(barcode.rawValue.toString()).observe(requireActivity() ,object :Observer<Product>{
+                    override fun onChanged(product:Product?) {
+                        Toast.makeText(requireContext() ,product?.name ,Toast.LENGTH_SHORT).show()
+                    }
+                })
 
-                val intent = Intent(requireContext() ,AddProductActivity::class.java)
-                intent.putExtra("ProductID" ,barcode.rawValue.toString())
-                startActivity(intent)
             }
         })
 
