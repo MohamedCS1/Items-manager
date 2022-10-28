@@ -1,12 +1,20 @@
 package com.example.p_scanner
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainer
 import com.example.p_scanner.databinding.ActivityMainBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,11 +30,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkCameraPermission()
+
         scanningFragment = ScanningFragment()
         listProductsFragment = ListProductsFragment()
         searchFragment = SearchFragment()
 
-        setFragment(scanningFragment)
         binding.buScanner.setOnClickListener {
             binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)
             binding.buScanner.setColorFilter(Color.parseColor("#5A6CF3"))
@@ -59,10 +68,52 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        checkCameraPermission()
+        super.onStart()
+    }
+
     private fun setFragment(fragment: Fragment)
     {
         val fr = supportFragmentManager.beginTransaction()
         fr.replace(R.id.fragment_container ,fragment)
         fr.commit()
     }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 0)
+        {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                setFragment(scanningFragment)
+            }
+            else if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED)
+            {
+                intentToSettings()
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, arrayOf(android.Manifest.permission.CAMERA).toString()) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
+        }
+    }
+
+    fun intentToSettings()
+    {
+
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
+
 }

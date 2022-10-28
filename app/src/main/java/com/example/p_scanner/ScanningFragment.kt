@@ -28,8 +28,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class ScanningFragment : Fragment()  {
-    private var param1: String? = null
-    private var param2: String? = null
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
@@ -40,10 +38,6 @@ class ScanningFragment : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
         barCodeAnalyzer = BarCodeAnalyzer(requireContext())
@@ -151,16 +145,5 @@ class ScanningFragment : Fragment()  {
                 exc.printStackTrace()
             }
         }, ContextCompat.getMainExecutor(requireContext()))
-    }
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ScanningFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

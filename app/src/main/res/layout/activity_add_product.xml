@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:text="What kind of item would you like to add ?"
             android:textColor="#3A3C3F"
+            android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
             android:layout_gravity="start"/>
 
@@ -65,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:text="Service"
                     android:buttonTint="@color/black"
+                    android:textSize="@dimen/_11ssp"
                     android:textColor="#3A3C3F"
                     android:layout_marginEnd="@dimen/_10sdp"/>
                 <RadioButton
@@ -73,6 +75,7 @@
                     android:text="Product"
                     android:textColor="#3A3C3F"
                     android:buttonTint="@color/black"
+                    android:textSize="@dimen/_11ssp"
                     android:layout_marginStart="@dimen/_10sdp"/>
             </RadioGroup>
 
@@ -84,6 +87,7 @@
             android:text="id"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
             android:layout_marginStart="@dimen/_2sdp"
             android:textColor="#3A3C3F"/>
 
@@ -93,9 +97,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_bu_scanner"
             android:backgroundTint="#F2F2F5"
+            android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:hint=""
+            android:hint="Enter the Id"
             android:textColorHint="#9E000000"
             android:layout_marginBottom="@dimen/_20sdp"/>
 
@@ -104,6 +109,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textStyle="bold"
+            android:textSize="@dimen/_11ssp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
             android:textColor="#3A3C3F"/>
@@ -115,6 +121,7 @@
             android:backgroundTint="#F2F2F5"
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
             android:hint="Title or name the product"
             android:textColorHint="#424D59"
             android:layout_marginBottom="@dimen/_20sdp"/>
@@ -123,6 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
@@ -135,6 +143,7 @@
             android:background="@drawable/background_bu_scanner"
             android:backgroundTint="#F2F2F5"
             android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
             android:hint="Discribe your product"
             android:gravity="start"
@@ -146,6 +155,7 @@
             android:layout_height="wrap_content"
             android:text="Price"
             android:textStyle="bold"
+            android:textSize="@dimen/_11ssp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_2sdp"
             android:textColor="#3A3C3F"/>
@@ -157,6 +167,7 @@
             android:background="@drawable/background_bu_scanner"
             android:backgroundTint="#F2F2F5"
             android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
             android:hint="Enter amount"
             android:textColorHint="#424D59"
@@ -176,7 +187,7 @@
                 android:text="Cancel"
                 android:gravity="center"
                 android:textColor="#B4000000"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_15ssp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -189,7 +200,7 @@
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
                 android:backgroundTint="@color/my_orange"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="@dimen/_15ssp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_weight="1"/>
