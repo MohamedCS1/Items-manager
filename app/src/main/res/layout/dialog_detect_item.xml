@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_15sdp"
+    android:background="@drawable/background_bu_list_products"
+    >
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="id"
+        android:textColor="#3A3C3F"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tv_id2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bu_scanner"
+        android:backgroundTint="#F2F2F5"
+        android:hint="Enter the Id"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:textColorHint="#9E000000"
+        android:textSize="@dimen/_11ssp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="#3A3C3F"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tv_name2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bu_scanner"
+        android:backgroundTint="#F2F2F5"
+        android:hint="Title or name the product"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:textColor="@color/black"
+        android:textColorHint="#424D59"
+        android:textSize="@dimen/_11ssp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textColor="#3A3C3F"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tv_description2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bu_scanner"
+        android:backgroundTint="#F2F2F5"
+        android:gravity="start"
+        android:hint="Discribe your product"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:textColorHint="#424D59"
+        android:textSize="@dimen/_11ssp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textColor="#3A3C3F"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tv_price2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bu_scanner"
+        android:backgroundTint="#F2F2F5"
+        android:hint="Enter amount"
+        android:inputType="number"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textColorHint="#424D59"
+        android:textSize="@dimen/_11ssp" />
+</LinearLayout>
