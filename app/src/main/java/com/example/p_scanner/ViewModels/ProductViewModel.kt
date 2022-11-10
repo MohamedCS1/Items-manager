@@ -22,13 +22,9 @@ class ProductViewModel(owner: LifecycleOwner ,context: Context):ViewModel() {
     val productDAO = db.productDAO()
 
     init {
-
         val barCodeAnalyzer = BarCodeAnalyzer(context)
-
         barCodeAnalyzer.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                val intent = Intent(context , AddProductActivity::class.java)
-                intent.putExtra("ProductID" ,barcode.rawValue.toString())
                 productBarCodeDetectLiveData.value = barcode.rawValue.toString()
             }
         })
@@ -38,6 +34,7 @@ class ProductViewModel(owner: LifecycleOwner ,context: Context):ViewModel() {
                 db.queryExecutor.execute {
                     try {
                         productDAO.insertProduct(Product(product!!.id ,product.name ,product.description ,product.price))
+                        (context as Activity).finish()
                     }catch (ex: SQLiteException){
                         (context as Activity).runOnUiThread {
                             Toast.makeText(context,"this product already exist" , Toast.LENGTH_SHORT).show()

@@ -2,6 +2,9 @@ package com.example.p_scanner.BarCodeScanner
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
+import android.util.Size
+import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
@@ -14,6 +17,7 @@ var barCodeInterfaces:BarCodeInterfaces? = null
 class BarCodeAnalyzer(
     private val context: Context
 ) : ImageAnalysis.Analyzer {
+
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(image: ImageProxy) {
         val img = image.image
@@ -33,6 +37,7 @@ class BarCodeAnalyzer(
                         barCodeInterfaces!!.onBarCodeDetection(barcodes[0])
                         return@addOnSuccessListener
                     }
+
                 }
                 .addOnFailureListener { }
 

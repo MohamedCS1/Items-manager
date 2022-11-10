@@ -22,7 +22,7 @@ class ListProductsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        productViewModel = ProductViewModel(this,requireContext())
+        productViewModel = ProductViewModel(this ,requireContext())
 
         adapter = ProductsAdapter()
 
