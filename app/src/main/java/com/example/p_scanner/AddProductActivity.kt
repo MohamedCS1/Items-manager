@@ -8,18 +8,19 @@ import android.widget.Toast
 import com.example.p_scanner.DAO.ProductDAO
 import com.example.p_scanner.Database.ProductsDatabase
 import com.example.p_scanner.Pojo.Product
+import com.example.p_scanner.ViewModels.ProductViewModel
 import com.example.p_scanner.databinding.ActivityAddProductBinding
 
 class AddProductActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityAddProductBinding
+    lateinit var productViewModel: ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = ProductsDatabase.getDatabase(this)
-        val productDAO = db.productDAO()
+        productViewModel = ProductViewModel(this ,this)
 
         val productID = intent.extras?.getString("ProductID")?:""
 
@@ -37,17 +38,7 @@ class AddProductActivity : AppCompatActivity() {
         }
 
         binding.buAddItem.setOnClickListener {
-            db.queryExecutor.execute {
-                try {
-
-                    productDAO.insertProduct(Product(binding.tvId.text.toString() ,binding.tvName.text.toString() ,binding.tvDescription.text.toString() ,binding.tvPrice.text.toString()))
-                    finish()
-                }catch (ex:SQLiteException){
-                    runOnUiThread {
-                        Toast.makeText(this ,"this product already exist" ,Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+            productViewModel.setProductLiveData.value = Product(binding.tvId.text.toString() ,binding.tvName.text.toString() ,binding.tvDescription.text.toString() ,binding.tvPrice.text.toString())
         }
     }
 }

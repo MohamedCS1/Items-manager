@@ -23,32 +23,18 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 
 class ScanningFragment : Fragment()  {
 
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
-    var barCodeAnalyzer: BarCodeAnalyzer? = null
-
     var animator: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
-
-        barCodeAnalyzer = BarCodeAnalyzer(requireContext())
-
-        barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
-            override fun onBarCodeDetection(barcode: Barcode) {
-                val intent = Intent(requireContext() ,AddProductActivity::class.java)
-                intent.putExtra("ProductID" ,barcode.rawValue.toString())
-                startActivity(intent)
-            }
-        })
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
