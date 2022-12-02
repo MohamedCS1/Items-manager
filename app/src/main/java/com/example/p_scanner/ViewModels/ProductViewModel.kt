@@ -2,38 +2,38 @@ package com.example.p_scanner.ViewModels
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.database.sqlite.SQLiteException
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.p_scanner.AddProductActivity
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
 import com.example.p_scanner.Database.ProductsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
-import com.example.p_scanner.Pojo.Product
+import com.example.p_scanner.Pojo.Item
 import com.google.mlkit.vision.barcode.common.Barcode
+import kotlinx.coroutines.currentCoroutineContext
+import kotlin.coroutines.coroutineContext
 
-class ProductViewModel(owner: LifecycleOwner ,context: Context):ViewModel() {
+class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() {
     val productBarCodeDetectLiveData = MutableLiveData<String>()
-    val setProductLiveData = MutableLiveData<Product>()
-    val getListProductLiveData = MutableLiveData<List<Product>>()
+    val setItemLiveData = MutableLiveData<Item>()
+    val getListItemLiveData = MutableLiveData<List<Item>>()
 
     val db = ProductsDatabase.getDatabase(context)
     val productDAO = db.productDAO()
-
+    var barCodeAnalyzer = BarCodeAnalyzer(context)
     init {
-        val barCodeAnalyzer = BarCodeAnalyzer(context)
+        barCodeAnalyzer = BarCodeAnalyzer(context)
         barCodeAnalyzer.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
                 productBarCodeDetectLiveData.value = barcode.rawValue.toString()
             }
         })
 
-        setProductLiveData.observe(owner,object :Observer<Product>{
-            override fun onChanged(product: Product?) {
+        setItemLiveData.observe(owner,object :Observer<Item>{
+            override fun onChanged(item: Item?) {
                 db.queryExecutor.execute {
                     try {
-                        productDAO.insertProduct(Product(product!!.id ,product.name ,product.description ,product.price))
+                        productDAO.insertProduct(Item(item!!.id ,item.name ,item.description ,item.price ,item.type))
                         (context as Activity).finish()
                     }catch (ex: SQLiteException){
                         (context as Activity).runOnUiThread {
@@ -44,13 +44,15 @@ class ProductViewModel(owner: LifecycleOwner ,context: Context):ViewModel() {
             }
         })
 
-        productDAO.getProduct().observe(owner ,object :Observer<List<Product>>{
-            override fun onChanged(ListProducts: List<Product>?) {
-                getListProductLiveData.value = ListProducts!!
+        productDAO.getProduct().observe(owner ,object :Observer<List<Item>>{
+            override fun onChanged(listItems: List<Item>?) {
+                getListItemLiveData.value = listItems!!
             }
         })
 
     }
-
+    fun reset(){
+        barCodeAnalyzer = BarCodeAnalyzer(context)
+    }
 
 }

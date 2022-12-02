@@ -2,9 +2,7 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +19,7 @@ import androidx.lifecycle.Observer
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
 import com.example.p_scanner.Database.ProductsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
-import com.example.p_scanner.Pojo.Product
-import com.example.p_scanner.databinding.FragmentScanningBinding
+import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
@@ -48,9 +45,9 @@ class SearchFragment : Fragment() {
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                productDAO.getProductById(barcode.rawValue.toString()).observe(requireActivity() ,object :Observer<Product>{
-                    override fun onChanged(product:Product?) {
-                        Toast.makeText(requireContext() ,product?.name ,Toast.LENGTH_SHORT).show()
+                productDAO.getProductById(barcode.rawValue.toString()).observe(requireActivity() ,object :Observer<Item>{
+                    override fun onChanged(item:Item?) {
+                        Toast.makeText(requireContext() ,item?.name ,Toast.LENGTH_SHORT).show()
                     }
                 })
 

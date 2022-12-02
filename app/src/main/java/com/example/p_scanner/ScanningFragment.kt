@@ -42,7 +42,7 @@ class ScanningFragment : Fragment()  {
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
-        productViewModel = ProductViewModel(this ,requireContext()).getInstance()
+        productViewModel = ProductViewModel(this ,requireContext())
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -82,7 +82,6 @@ class ScanningFragment : Fragment()  {
 
     override fun onResume() {
         super.onResume()
-        productViewModel.getInstance()
         cameraExecutor = Executors.newSingleThreadExecutor()
         startCamera()
     }
@@ -92,6 +91,7 @@ class ScanningFragment : Fragment()  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         Toast.makeText(context ,"OnCreatView", Toast.LENGTH_SHORT).show()
         return binding.root
     }

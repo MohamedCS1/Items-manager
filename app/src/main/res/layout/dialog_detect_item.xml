@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/_15sdp"
-    android:background="@drawable/background_bu_list_products"
+    android:background="@drawable/background_radius_second_color"
     >
 
     <TextView

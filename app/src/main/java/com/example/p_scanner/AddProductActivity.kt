@@ -1,24 +1,22 @@
 package com.example.p_scanner
 
-import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.example.p_scanner.DAO.ProductDAO
-import com.example.p_scanner.Database.ProductsDatabase
-import com.example.p_scanner.Pojo.Product
+import android.widget.RadioGroup
+import com.example.p_scanner.Pojo.Item
+import com.example.p_scanner.Pojo.ItemType
 import com.example.p_scanner.ViewModels.ProductViewModel
-import com.example.p_scanner.databinding.ActivityAddProductBinding
+import com.example.p_scanner.databinding.ActivityAddItemBinding
 
 class AddProductActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityAddProductBinding
+    lateinit var binding:ActivityAddItemBinding
     lateinit var productViewModel: ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddProductBinding.inflate(layoutInflater)
+        binding = ActivityAddItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         productViewModel = ProductViewModel(this ,this)
 
@@ -37,8 +35,20 @@ class AddProductActivity : AppCompatActivity() {
             finish()
         }
 
+        var itemType = ItemType.PRODUCT
+        binding.radioGroupeProductType.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                when (checkedId)
+                {
+                    binding.buProduct.id -> itemType = ItemType.PRODUCT
+
+                    binding.buService.id -> itemType = ItemType.SERVICE
+                }
+            }
+        })
+
         binding.buAddItem.setOnClickListener {
-            productViewModel.setProductLiveData.value = Product(binding.tvId.text.toString() ,binding.tvName.text.toString() ,binding.tvDescription.text.toString() ,binding.tvPrice.text.toString())
+            productViewModel.setItemLiveData.value = Item(binding.tvId.text.toString() ,binding.tvName.text.toString() ,binding.tvDescription.text.toString() ,binding.tvPrice.text.toString() ,itemType)
         }
     }
 }

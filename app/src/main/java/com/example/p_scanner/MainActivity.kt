@@ -1,6 +1,5 @@
 package com.example.p_scanner
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,9 +11,7 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import com.example.p_scanner.databinding.ActivityMainBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buListProducts.setOnClickListener {
-            binding.buListProducts.setBackgroundResource(R.drawable.background_bu_list_products)
+            binding.buListProducts.setBackgroundResource(R.drawable.background_radius_second_color)
             binding.buListProducts.setColorFilter(Color.parseColor("#F08F5F"))
             binding.buScanner.setBackgroundColor(android.R.color.transparent)
             binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))

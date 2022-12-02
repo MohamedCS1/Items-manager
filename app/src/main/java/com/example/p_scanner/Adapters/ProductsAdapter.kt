@@ -6,30 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.p_scanner.Pojo.Product
+import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.R
 
 class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {
 
-    var arrayOfProducts = arrayListOf<Product>()
+    var arrayOfItems = arrayListOf<Item>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_product ,parent ,false))
+        return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_item ,parent ,false))
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.title.text = arrayOfProducts[position].name
-        holder.description.text = arrayOfProducts[position].description
-        holder.price.text = arrayOfProducts[position].price+" DA"
+        holder.title.text = arrayOfItems[position].name
+        holder.description.text = arrayOfItems[position].description
+        holder.price.text = arrayOfItems[position].price+" DA"
     }
 
     override fun getItemCount(): Int {
-        return arrayOfProducts.size
+        return arrayOfItems.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(arrayOfProduct:ArrayList<Product>)
+    fun setList(arrayOfItem:ArrayList<Item>)
     {
-        this.arrayOfProducts = arrayOfProduct
+        this.arrayOfItems = arrayOfItem
         notifyDataSetChanged()
     }
 }

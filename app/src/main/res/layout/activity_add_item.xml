@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_back"
-            android:background="@drawable/background_bu_list_products"
+            android:background="@drawable/background_radius_second_color"
             android:padding="@dimen/_5sdp"
             android:textColorHint="#424D59"
             app:tint="@color/my_orange"
@@ -58,10 +58,12 @@
             android:layout_marginBottom="@dimen/_15sdp"
             android:gravity="center">
             <RadioGroup
+                android:id="@+id/radioGroupeProductType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:id="@+id/buService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Service"
@@ -70,6 +72,7 @@
                     android:textColor="#3A3C3F"
                     android:layout_marginEnd="@dimen/_10sdp"/>
                 <RadioButton
+                    android:id="@+id/buProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product"

@@ -6,7 +6,7 @@
     android:backgroundTint="#F2F2F5"
     android:padding="@dimen/_10sdp"
     android:layout_margin="@dimen/_5sdp"
-    android:background="@drawable/background_bu_list_products">
+    android:background="@drawable/background_radius_second_color">
 
     <TextView
         android:id="@+id/title"

@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.p_scanner.DAO.ProductDAO
-import com.example.p_scanner.Pojo.Product
+import com.example.p_scanner.Pojo.Item
 
-@Database(entities = [Product::class] , version = 1)
+@Database(entities = [Item::class] , version = 1)
 abstract class ProductsDatabase:RoomDatabase() {
     abstract fun productDAO():ProductDAO
     companion object{
