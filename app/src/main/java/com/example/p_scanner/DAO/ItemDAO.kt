@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.p_scanner.Pojo.Item
 
 @Dao
-interface ProductDAO {
+interface ItemDAO {
 
     @Insert
     fun insertProduct(item: Item)

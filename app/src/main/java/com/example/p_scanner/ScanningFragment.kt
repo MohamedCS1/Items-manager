@@ -17,12 +17,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
-import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.ViewModels.ProductViewModel
 import com.example.p_scanner.databinding.FragmentScanningBinding
-import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -42,6 +39,13 @@ class ScanningFragment : Fragment()  {
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
+
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
         productViewModel = ProductViewModel(this ,requireContext())
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -49,7 +53,7 @@ class ScanningFragment : Fragment()  {
         productViewModel.productBarCodeDetectLiveData.observe(this ,object:Observer<String>{
             override fun onChanged(barcode: String?) {
                 Toast.makeText(context ,"THIS"+barcode.toString() , Toast.LENGTH_SHORT).show()
-                val intent = Intent(context , AddProductActivity::class.java)
+                val intent = Intent(context , AddAndEditItemActivity::class.java)
                 intent.putExtra("ProductID" ,barcode)
                 startActivity(intent)
             }
@@ -75,14 +79,6 @@ class ScanningFragment : Fragment()  {
             }
         })
 
-        startCamera()
-
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        cameraExecutor = Executors.newSingleThreadExecutor()
         startCamera()
     }
 

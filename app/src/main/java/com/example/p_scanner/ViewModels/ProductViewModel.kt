@@ -6,19 +6,17 @@ import android.database.sqlite.SQLiteException
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
-import com.example.p_scanner.Database.ProductsDatabase
+import com.example.p_scanner.Database.ItemsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.Pojo.Item
 import com.google.mlkit.vision.barcode.common.Barcode
-import kotlinx.coroutines.currentCoroutineContext
-import kotlin.coroutines.coroutineContext
 
 class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() {
     val productBarCodeDetectLiveData = MutableLiveData<String>()
     val setItemLiveData = MutableLiveData<Item>()
     val getListItemLiveData = MutableLiveData<List<Item>>()
 
-    val db = ProductsDatabase.getDatabase(context)
+    val db = ItemsDatabase.getDatabase(context)
     val productDAO = db.productDAO()
     var barCodeAnalyzer = BarCodeAnalyzer(context)
     init {

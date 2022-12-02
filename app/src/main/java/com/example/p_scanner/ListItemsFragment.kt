@@ -12,7 +12,7 @@ import com.example.p_scanner.Adapters.ProductsAdapter
 import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.ViewModels.ProductViewModel
 
-class ListProductsFragment : Fragment() {
+class ListItemsFragment : Fragment() {
     lateinit var adapter: ProductsAdapter
     lateinit var productViewModel:ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {

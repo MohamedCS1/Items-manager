@@ -2,6 +2,7 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -17,7 +17,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
-import com.example.p_scanner.Database.ProductsDatabase
+import com.example.p_scanner.Database.ItemsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.databinding.FragmentSearchBinding
@@ -36,8 +36,30 @@ class SearchFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentSearchBinding.inflate(layoutInflater)
+    }
 
-        val db = ProductsDatabase.getDatabase(requireContext())
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cameraExecutor.shutdown()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        cameraExecutor = Executors.newSingleThreadExecutor()
+        startCamera()
+    }
+
+
+    override fun onResume() {
+        val db = ItemsDatabase.getDatabase(requireContext())
 
         val productDAO = db.productDAO()
 
@@ -47,7 +69,9 @@ class SearchFragment : Fragment() {
             override fun onBarCodeDetection(barcode: Barcode) {
                 productDAO.getProductById(barcode.rawValue.toString()).observe(requireActivity() ,object :Observer<Item>{
                     override fun onChanged(item:Item?) {
-                        Toast.makeText(requireContext() ,item?.name ,Toast.LENGTH_SHORT).show()
+                        val intent = Intent(context ,AddAndEditItemActivity::class.java)
+                        intent.putExtra(item ,"Item")
+                        startActivity(intent)
                     }
                 })
 
@@ -78,29 +102,8 @@ class SearchFragment : Fragment() {
         })
 
         startCamera()
+        super.onResume()
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-    override fun onPause() {
-        super.onPause()
-        cameraExecutor.shutdown()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        cameraExecutor = Executors.newSingleThreadExecutor()
-        startCamera()
-    }
-
-
-
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()

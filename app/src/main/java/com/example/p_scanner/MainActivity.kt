@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
 
     lateinit var scanningFragment: ScanningFragment
-    lateinit var listProductsFragment: ListProductsFragment
+    lateinit var listItemsFragment: ListItemsFragment
     lateinit var searchFragment: SearchFragment
 
     @SuppressLint("ResourceAsColor", "ResourceType")
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         checkCameraPermission()
 
         scanningFragment = ScanningFragment()
-        listProductsFragment = ListProductsFragment()
+        listItemsFragment = ListItemsFragment()
         searchFragment = SearchFragment()
 
         binding.buScanner.setOnClickListener {
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))
             binding.buSearch.setBackgroundColor(android.R.color.transparent)
             binding.buSearch.setColorFilter(Color.parseColor("#BBBBBB"))
-            setFragment(listProductsFragment)
+            setFragment(listItemsFragment)
         }
 
         binding.buSearch.setOnClickListener {

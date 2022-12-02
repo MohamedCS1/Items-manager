@@ -8,7 +8,7 @@ import com.example.p_scanner.Pojo.ItemType
 import com.example.p_scanner.ViewModels.ProductViewModel
 import com.example.p_scanner.databinding.ActivityAddItemBinding
 
-class AddProductActivity : AppCompatActivity() {
+class AddAndEditItemActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityAddItemBinding
     lateinit var productViewModel: ProductViewModel
