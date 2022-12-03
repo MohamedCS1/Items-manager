@@ -18,14 +18,8 @@ class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() 
 
     val db = ItemsDatabase.getDatabase(context)
     val productDAO = db.productDAO()
-    var barCodeAnalyzer = BarCodeAnalyzer(context)
     init {
-        barCodeAnalyzer = BarCodeAnalyzer(context)
-        barCodeAnalyzer.onBarCodeDetection(object : BarCodeInterfaces {
-            override fun onBarCodeDetection(barcode: Barcode) {
-                productBarCodeDetectLiveData.value = barcode.rawValue.toString()
-            }
-        })
+
 
         setItemLiveData.observe(owner,object :Observer<Item>{
             override fun onChanged(item: Item?) {
@@ -48,9 +42,6 @@ class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() 
             }
         })
 
-    }
-    fun reset(){
-        barCodeAnalyzer = BarCodeAnalyzer(context)
     }
 
 }

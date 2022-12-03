@@ -2,6 +2,7 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,18 +16,20 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
 import com.example.p_scanner.Database.ItemsDatabase
 import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.Pojo.Item
+import com.example.p_scanner.Pojo.ItemInteractions
 import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
-class SearchFragment : Fragment() {
+class SearchFragment(val owner: LifecycleOwner) : Fragment() {
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding: FragmentSearchBinding
     var barCodeAnalyzer: BarCodeAnalyzer? = null
@@ -59,22 +62,21 @@ class SearchFragment : Fragment() {
 
 
     override fun onResume() {
+
         val db = ItemsDatabase.getDatabase(requireContext())
-
-        val productDAO = db.productDAO()
-
+        val itemDAO = db.productDAO()
         barCodeAnalyzer = BarCodeAnalyzer(requireContext())
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                productDAO.getProductById(barcode.rawValue.toString()).observe(requireActivity() ,object :Observer<Item>{
-                    override fun onChanged(item:Item?) {
-                        val intent = Intent(context ,AddAndEditItemActivity::class.java)
-                        intent.putExtra(item ,"Item")
-                        startActivity(intent)
-                    }
-                })
-
+                    itemDAO.getItemById(barcode.rawValue.toString()).observe(owner,object :Observer<Item>{
+                        override fun onChanged(item:Item?) {
+                            val intent = Intent(context ,AddAndEditItemActivity::class.java)
+                            intent.putExtra("Item" ,item)
+                            intent.putExtra("Interaction" ,ItemInteractions.EDIT)
+                            startActivity(intent)
+                        }
+                    })
             }
         })
 

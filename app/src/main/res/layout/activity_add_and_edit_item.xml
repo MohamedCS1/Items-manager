@@ -95,7 +95,7 @@
             android:textColor="#3A3C3F"/>
 
         <EditText
-            android:id="@+id/tv_id"
+            android:id="@+id/et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_bu_scanner"
@@ -117,7 +117,7 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:textColor="#3A3C3F"/>
         <EditText
-            android:id="@+id/tv_name"
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_bu_scanner"
@@ -140,7 +140,7 @@
             android:textColor="#3A3C3F"/>
 
         <EditText
-            android:id="@+id/tv_description"
+            android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:background="@drawable/background_bu_scanner"
@@ -164,7 +164,7 @@
             android:textColor="#3A3C3F"/>
 
         <EditText
-            android:id="@+id/tv_price"
+            android:id="@+id/et_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_bu_scanner"

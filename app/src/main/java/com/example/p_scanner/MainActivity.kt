@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         scanningFragment = ScanningFragment()
         listItemsFragment = ListItemsFragment()
-        searchFragment = SearchFragment()
+        searchFragment = SearchFragment(this)
 
         binding.buScanner.setOnClickListener {
             binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)

@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
+import com.example.p_scanner.Pojo.ItemInteractions
 import com.example.p_scanner.ViewModels.ProductViewModel
 import com.example.p_scanner.databinding.FragmentScanningBinding
 import java.util.concurrent.ExecutorService
@@ -54,7 +55,8 @@ class ScanningFragment : Fragment()  {
             override fun onChanged(barcode: String?) {
                 Toast.makeText(context ,"THIS"+barcode.toString() , Toast.LENGTH_SHORT).show()
                 val intent = Intent(context , AddAndEditItemActivity::class.java)
-                intent.putExtra("ProductID" ,barcode)
+                intent.putExtra("ItemBarCode" ,barcode)
+                intent.putExtra("Interaction" , ItemInteractions.ADD)
                 startActivity(intent)
             }
         })
