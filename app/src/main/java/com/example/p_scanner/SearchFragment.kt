@@ -75,6 +75,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                             intent.putExtra("Item" ,item)
                             intent.putExtra("Interaction" ,ItemInteractions.EDIT)
                             startActivity(intent)
+                            return
                         }
                     })
             }

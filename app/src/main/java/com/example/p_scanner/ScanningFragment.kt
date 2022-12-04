@@ -40,8 +40,6 @@ class ScanningFragment : Fragment()  {
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
-
-
     }
 
 
@@ -58,6 +56,7 @@ class ScanningFragment : Fragment()  {
                 intent.putExtra("ItemBarCode" ,barcode)
                 intent.putExtra("Interaction" , ItemInteractions.ADD)
                 startActivity(intent)
+                return
             }
         })
 
