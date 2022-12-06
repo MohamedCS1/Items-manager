@@ -14,8 +14,8 @@ import com.example.p_scanner.ViewModels.ProductViewModel
 
 class ListItemsFragment : Fragment() {
     lateinit var adapter: ProductsAdapter
-    lateinit var productViewModel:ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
+    lateinit var productViewModel:ProductViewModel
         super.onCreate(savedInstanceState)
 
         productViewModel = ProductViewModel(this ,requireContext())
@@ -27,6 +27,7 @@ class ListItemsFragment : Fragment() {
                 adapter.setList(listItems!! as ArrayList<Item>)
             }
         })
+
     }
 
     override fun onCreateView(
