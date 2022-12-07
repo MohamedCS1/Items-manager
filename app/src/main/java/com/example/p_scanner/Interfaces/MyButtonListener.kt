@@ -1,5 +1,5 @@
 package com.example.p_scanner.Interfaces
 
-interface MyButtonListener {
+open interface MyButtonListener {
     fun onClick(pos:Int)
 }

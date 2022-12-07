@@ -1,5 +1,6 @@
 package com.example.p_scanner
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.p_scanner.Adapters.ProductsAdapter
+import com.example.p_scanner.Interfaces.MyButtonListener
 import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.ViewModels.ProductViewModel
 
@@ -28,6 +30,7 @@ class ListItemsFragment : Fragment() {
             }
         })
 
+
     }
 
     override fun onCreateView(
@@ -38,6 +41,15 @@ class ListItemsFragment : Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.rv_products)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
+
+        val swiperHelper = object : SwiperHelper(requireContext(),rv ,200){
+            override fun instantiateMyButton(
+                viewHolder: RecyclerView.ViewHolder,
+                buffer: ArrayList<MyButton>
+            ) {
+                buffer.add(MyButton(requireContext() ,"Delete" ,30 ,0 ,Color.BLACK ,object :MyButtonListener{} ,))
+            }
+        }
         return view
     }
 
