@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +48,19 @@ class ListItemsFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 buffer: ArrayList<MyButton>
             ) {
-                buffer.add(MyButton(requireContext() ,"Delete" ,30 ,0 ,Color.BLACK ,object :MyButtonListener{} ,))
+                buffer.add(MyButton(requireContext() ,"Delete" ,30 ,0 ,Color.YELLOW ,object :MyButtonListener{
+                    override fun onClick(pos: Int) {
+                        Toast.makeText(requireContext() ,"ADD POS $pos" ,Toast.LENGTH_SHORT).show()
+                    }
+                } ))
+
+                buffer.add(MyButton(requireContext() ,"Delete" ,
+                   30, R.drawable.icon_torch,Color.YELLOW ,object :MyButtonListener{
+                    override fun onClick(pos: Int) {
+
+                        Toast.makeText(requireContext() ,"DELETE Pos $pos" ,Toast.LENGTH_SHORT).show()
+                    }
+                } ))
             }
         }
         return view

@@ -198,14 +198,16 @@ abstract class SwiperHelper(val context: Context, val recyclerView: RecyclerView
         }
     }
 
-    class MyButton(val context: Context, val text:String, val imageResId:Int, val textSize:Int, val color:Int, val listener: MyButtonListener){
+    class MyButton(val context: Context, val text:String, val textSize:Int, val imageResId:Int, val color:Int, val listener: MyButtonListener){
 
-        private val clickRegion = RectF()
+
+        var pos:Int? = null
+        private var clickRegion:RectF? = null
 
         fun onClick(x:Float, y:Float): Boolean {
-            if (clickRegion.contains(x ,y))
+            if (clickRegion!!.contains(x ,y))
             {
-                listener.onClick(pos)
+                listener.onClick(pos!!)
                 return true
             }
             return false
@@ -241,8 +243,9 @@ abstract class SwiperHelper(val context: Context, val recyclerView: RecyclerView
             {
                 val drawable = ContextCompat.getDrawable(context ,imageResId)
                 val bitmap:Bitmap = drawableToBitmap(drawable!!)
+                canvas.drawBitmap(bitmap ,((rectF.left + rectF.right)/2).toFloat() ,((rectF.top + rectF.bottom)/2).toFloat() ,paint)
             }
-            clickRegion = rectF
+            this.clickRegion = rectF
             this.pos = pos
         }
 
