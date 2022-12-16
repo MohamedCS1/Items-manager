@@ -20,6 +20,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -51,23 +53,27 @@ class ItemDatabaseTest:TestCase() {
     @Test
     fun writeAndRedDB() {
         runBlocking {
-            val lifecycle = mock(LifecycleOwner::class.java)
-            val id = "mkjkhhy"
-            val item = Item(id, "Any Product", "Some Description", "231gh4,0", ItemType.PRODUCT)
+            val id = "3454354"
+            val item = Item(id, "Any Product", "Some Description", "54623.678", ItemType.PRODUCT)
             database.queryExecutor.execute {
                 dao.insertProduct(item)
             }
 
-            var priceO:String?=null
-            Handler(Looper.getMainLooper()).post {
-                dao.getItemById(id).observeForever(object : Observer<Item> {
-                    override fun onChanged(price: Item?) {
-                        Log.d("price", "InChanges "+price.toString())
-                        priceO = price?.price.toString()
-                        assertTrue("231gh4jkgh,0" == priceO)
-                    }
-                })
-            }
+            val latch = CountDownLatch(1)
+                var price:String?=null
+
+                Handler(Looper.getMainLooper()).post {
+                    dao.getItemById(id).observeForever(object : Observer<Item> {
+                        override fun onChanged(item: Item?) {
+                            price = item?.price.toString()
+                            latch.countDown()
+                        }
+                    })
+                }
+
+            latch.await(2, TimeUnit.SECONDS)
+
+            assertThat(price == "54623.678").isTrue()
         }
 
     }
