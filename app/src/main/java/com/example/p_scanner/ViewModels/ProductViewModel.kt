@@ -5,11 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteException
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
 import com.example.p_scanner.Database.ItemsDatabase
-import com.example.p_scanner.Interfaces.BarCodeInterfaces
 import com.example.p_scanner.Pojo.Item
-import com.google.mlkit.vision.barcode.common.Barcode
 
 class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() {
     val productBarCodeDetectLiveData = MutableLiveData<String>()
@@ -36,7 +33,7 @@ class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() 
             }
         })
 
-        productDAO.getProduct().observe(owner ,object :Observer<List<Item>>{
+        productDAO.getAllItems().observe(owner ,object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
                 getListItemLiveData.value = listItems!!
             }

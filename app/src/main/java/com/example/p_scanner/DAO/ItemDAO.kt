@@ -13,7 +13,7 @@ interface ItemDAO {
     fun insertProduct(item: Item)
 
     @Query("select * from ProductsTable")
-    fun getProduct():LiveData<List<Item>>
+    fun getAllItems():LiveData<List<Item>>
 
     @Query("select * from ProductsTable where id=:id")
     fun getItemById(id:String):LiveData<Item>
