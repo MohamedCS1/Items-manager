@@ -14,16 +14,12 @@ import com.example.p_scanner.Pojo.Item
 import com.example.p_scanner.Pojo.ItemType
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyLong
-import org.mockito.Mockito
 import org.mockito.Mockito.*
-import org.mockito.stubbing.Answer
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -54,32 +50,25 @@ class ItemDatabaseTest:TestCase() {
 
     @Test
     fun writeAndRedDB() {
-        val lifecycle = mock(LifecycleOwner::class.java)
-        val id = "jklhklj"
-        val item = Item(id, "Any Product", "Some Description", "231gh4,0", ItemType.PRODUCT)
-        database.queryExecutor.execute {
-            dao.insertProduct(item)
+        runBlocking {
+            val lifecycle = mock(LifecycleOwner::class.java)
+            val id = "mkjkhhy"
+            val item = Item(id, "Any Product", "Some Description", "231gh4,0", ItemType.PRODUCT)
+            database.queryExecutor.execute {
+                dao.insertProduct(item)
+            }
+
+            var priceO:String?=null
+            Handler(Looper.getMainLooper()).post {
+                dao.getItemById(id).observeForever(object : Observer<Item> {
+                    override fun onChanged(price: Item?) {
+                        Log.d("price", "InChanges "+price.toString())
+                        priceO = price?.price.toString()
+                        assertTrue("231gh4jkgh,0" == priceO)
+                    }
+                })
+            }
         }
-
-        Handler(Looper.getMainLooper()).post {
-            dao.getAllItems().observeForever(object : Observer<List<Item>> {
-                override fun onChanged(price: List<Item>?) {
-
-                    Log.d("item",  price!![0].price)
-                    assertThat(price[0].price == "2314,0").isTrue()
-                }
-            })
-        }
-
-//            Handler(Looper.getMainLooper()).post {
-//                dao.getItemById(id).observe(lifecycle, object : Observer<Item> {
-//                    override fun onChanged(price: Item?) {
-//
-//                        Log.d("price", "fffffffffff" + price)
-//                        assertThat(price?.price == "2314,0").isTrue()
-//                    }
-//                })
-//            }
 
     }
 }
