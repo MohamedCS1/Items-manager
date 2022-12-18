@@ -9,7 +9,7 @@ import com.example.p_scanner.Pojo.Item
 
 @Database(entities = [Item::class] , version = 1)
 abstract class ItemsDatabase:RoomDatabase() {
-    abstract fun productDAO():ItemDAO
+    abstract fun itemDAO():ItemDAO
     companion object{
         @Volatile
         private var INSTANSE: ItemsDatabase? = null

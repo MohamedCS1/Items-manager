@@ -25,7 +25,7 @@ class ListItemsFragment : Fragment() {
 
         adapter = ProductsAdapter()
 
-        productViewModel.getListItemLiveData.observe(this,object :Observer<List<Item>>{
+        productViewModel.listItemsLiveData.observe(this,object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
                 adapter.setList(listItems!! as ArrayList<Item>)
             }

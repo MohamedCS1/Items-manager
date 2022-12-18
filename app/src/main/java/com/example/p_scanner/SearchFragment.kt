@@ -64,7 +64,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
     override fun onResume() {
 
         val db = ItemsDatabase.getDatabase(requireContext())
-        val itemDAO = db.productDAO()
+        val itemDAO = db.itemDAO()
         barCodeAnalyzer = BarCodeAnalyzer(requireContext())
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {

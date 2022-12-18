@@ -68,7 +68,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
         })
 
         binding.buAddItem.setOnClickListener {
-            productViewModel.setItemLiveData.value = Item(binding.etId.text.toString() ,binding.etName.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+            productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etName.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
         }
     }
 }

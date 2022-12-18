@@ -3,7 +3,6 @@ package com.example.p_scanner
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -19,7 +18,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
+import org.mockito.Mockito
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -38,20 +37,21 @@ class ItemDatabaseTest:TestCase() {
 
     @Before
     public override fun setUp() {
+
         context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, ItemsDatabase::class.java).build()
-        dao = database.productDAO()
+        dao = database.itemDAO()
         super.setUp()
     }
 
     @After
-    fun closeDB() {
+    fun close() {
         database.close()
     }
 
 
     @Test
-    fun writeAndRedDB() {
+    fun writeAndRed() {
         runBlocking {
             val id = "3454354"
             val item = Item(id, "Any Product", "Some Description", "54623.678", ItemType.PRODUCT)
@@ -60,20 +60,17 @@ class ItemDatabaseTest:TestCase() {
             }
 
             val latch = CountDownLatch(1)
-                var price:String?=null
 
                 Handler(Looper.getMainLooper()).post {
                     dao.getItemById(id).observeForever(object : Observer<Item> {
                         override fun onChanged(item: Item?) {
-                            price = item?.price.toString()
+                            assertThat(item?.price == "54623.678").isTrue()
                             latch.countDown()
                         }
                     })
                 }
-
             latch.await(2, TimeUnit.SECONDS)
 
-            assertThat(price == "54623.678").isTrue()
         }
 
     }
