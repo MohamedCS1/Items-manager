@@ -10,7 +10,7 @@ import com.example.p_scanner.Pojo.Item
 interface ItemDAO {
 
     @Insert
-    fun insertProduct(item: Item)
+    fun insertItem(item: Item)
 
     @Query("select * from ProductsTable")
     fun getAllItems():LiveData<List<Item>>
