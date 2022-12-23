@@ -14,6 +14,7 @@ import com.example.p_scanner.adapters.ProductsAdapter
 import com.example.p_scanner.interfaces.MyButtonListener
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.viewmodels.ProductViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ListItemsFragment : Fragment() {
     lateinit var adapter: ProductsAdapter
@@ -42,27 +43,30 @@ class ListItemsFragment : Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.rv_products)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(R.layout.bootm_dialog)
 
-        val swiperHelper = object : SwiperHelper(requireContext(),rv ,200){
-            override fun instantiateMyButton(
-                viewHolder: RecyclerView.ViewHolder,
-                buffer: ArrayList<MyButton>
-            ) {
-                buffer.add(MyButton(requireContext() ,"Delete" ,30 ,0 ,Color.YELLOW ,object :MyButtonListener{
-                    override fun onClick(pos: Int) {
-                        Toast.makeText(requireContext() ,"ADD POS $pos" ,Toast.LENGTH_SHORT).show()
-                    }
-                } ))
-
-                buffer.add(MyButton(requireContext() ,"Delete" ,
-                   30, R.drawable.icon_torch,Color.YELLOW ,object :MyButtonListener{
-                    override fun onClick(pos: Int) {
-
-                        Toast.makeText(requireContext() ,"DELETE Pos $pos" ,Toast.LENGTH_SHORT).show()
-                    }
-                } ))
-            }
-        }
+        bottomSheetDialog.show()
+//        val swiperHelper = object : SwiperHelper(requireContext(),rv ,200){
+//            override fun instantiateMyButton(
+//                viewHolder: RecyclerView.ViewHolder,
+//                buffer: ArrayList<MyButton>
+//            ) {
+//                buffer.add(MyButton(requireContext() ,"Delete" ,30 ,0 ,Color.YELLOW ,object :MyButtonListener{
+//                    override fun onClick(pos: Int) {
+//                        Toast.makeText(requireContext() ,"ADD POS $pos" ,Toast.LENGTH_SHORT).show()
+//                    }
+//                } ))
+//
+//                buffer.add(MyButton(requireContext() ,"Delete" ,
+//                   30, R.drawable.icon_torch,Color.YELLOW ,object :MyButtonListener{
+//                    override fun onClick(pos: Int) {
+//
+//                        Toast.makeText(requireContext() ,"DELETE Pos $pos" ,Toast.LENGTH_SHORT).show()
+//                    }
+//                } ))
+//            }
+//        }
         return view
     }
 

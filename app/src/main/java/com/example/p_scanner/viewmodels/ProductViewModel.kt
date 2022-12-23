@@ -24,7 +24,6 @@ class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() 
 
         itemLiveData.observeForever(object :Observer<Item>{
             override fun onChanged(item: Item?) {
-
                 if (!repository.itemIsExists(item!!.id))
                 {
                     Toast.makeText(context ,"Add" ,Toast.LENGTH_SHORT).show()

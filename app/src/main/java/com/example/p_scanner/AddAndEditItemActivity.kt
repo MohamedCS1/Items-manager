@@ -9,6 +9,7 @@ import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.pojo.ItemType
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.example.p_scanner.databinding.ActivityAddAndEditItemBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AddAndEditItemActivity : AppCompatActivity() {
 
@@ -27,6 +28,8 @@ class AddAndEditItemActivity : AppCompatActivity() {
         itemBarCode = intent.extras?.getString("ItemBarCode")?:""
 
         interactions = (intent.extras?.get("Interaction")?:ItemInteractions.ADD) as ItemInteractions
+
+
 
         try {
             item = intent.extras?.get("Item") as Item

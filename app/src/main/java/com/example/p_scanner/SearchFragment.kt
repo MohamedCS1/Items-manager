@@ -23,6 +23,7 @@ import com.example.p_scanner.interfaces.BarCodeInterfaces
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.databinding.FragmentSearchBinding
+import com.example.p_scanner.repository.Repository
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -61,14 +62,12 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
 
 
     override fun onResume() {
-
-        val db = ItemsDatabase.getDatabase(requireContext())
-        val itemDAO = db.itemDAO()
+        val repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
         barCodeAnalyzer = BarCodeAnalyzer()
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                    itemDAO.getItemById(barcode.rawValue.toString()).observe(owner,object :Observer<Item>{
+                repository.getItemById(barcode.rawValue.toString()).observe(owner,object :Observer<Item>{
                         override fun onChanged(item:Item?) {
                             val intent = Intent(context ,AddAndEditItemActivity::class.java)
                             intent.putExtra("Item" ,item)
