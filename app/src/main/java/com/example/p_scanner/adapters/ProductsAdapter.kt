@@ -1,4 +1,4 @@
-package com.example.p_scanner.Adapters
+package com.example.p_scanner.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.p_scanner.Pojo.Item
+import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.R
 
 class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {

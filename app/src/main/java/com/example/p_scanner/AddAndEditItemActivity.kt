@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import com.example.p_scanner.Database.ItemsDatabase
-import com.example.p_scanner.Pojo.Item
-import com.example.p_scanner.Pojo.ItemInteractions
-import com.example.p_scanner.Pojo.ItemType
-import com.example.p_scanner.ViewModels.ProductViewModel
+import com.example.p_scanner.pojo.Item
+import com.example.p_scanner.pojo.ItemInteractions
+import com.example.p_scanner.pojo.ItemType
+import com.example.p_scanner.viewmodels.ProductViewModel
 import com.example.p_scanner.databinding.ActivityAddAndEditItemBinding
 
 class AddAndEditItemActivity : AppCompatActivity() {

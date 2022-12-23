@@ -1,4 +1,4 @@
-package com.example.p_scanner.Pojo
+package com.example.p_scanner.pojo
 
 import java.io.Serializable
 

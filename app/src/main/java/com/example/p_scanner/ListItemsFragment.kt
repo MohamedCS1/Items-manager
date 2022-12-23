@@ -10,10 +10,10 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.p_scanner.Adapters.ProductsAdapter
-import com.example.p_scanner.Interfaces.MyButtonListener
-import com.example.p_scanner.Pojo.Item
-import com.example.p_scanner.ViewModels.ProductViewModel
+import com.example.p_scanner.adapters.ProductsAdapter
+import com.example.p_scanner.interfaces.MyButtonListener
+import com.example.p_scanner.pojo.Item
+import com.example.p_scanner.viewmodels.ProductViewModel
 
 class ListItemsFragment : Fragment() {
     lateinit var adapter: ProductsAdapter

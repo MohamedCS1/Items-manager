@@ -1,13 +1,13 @@
-package com.example.p_scanner.Database
+package com.example.p_scanner.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.p_scanner.DAO.ItemDAO
-import com.example.p_scanner.Pojo.Item
+import com.example.p_scanner.dao.ItemDAO
+import com.example.p_scanner.pojo.Item
 
-@Database(entities = [Item::class] , version = 1)
+@Database(entities = [Item::class] , version = 2)
 abstract class ItemsDatabase:RoomDatabase() {
     abstract fun itemDAO():ItemDAO
     companion object{
@@ -17,7 +17,7 @@ abstract class ItemsDatabase:RoomDatabase() {
             return INSTANSE ?: synchronized(this){
                 val instanse = Room.databaseBuilder(
                     context.applicationContext ,ItemsDatabase::class.java ,"Product Database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANSE = instanse
                 instanse
             }

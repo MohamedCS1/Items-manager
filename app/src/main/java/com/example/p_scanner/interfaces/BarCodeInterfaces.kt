@@ -1,4 +1,4 @@
-package com.example.p_scanner.Interfaces
+package com.example.p_scanner.interfaces
 
 import com.google.mlkit.vision.barcode.common.Barcode
 

@@ -2,7 +2,6 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,11 +17,11 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
-import com.example.p_scanner.Database.ItemsDatabase
-import com.example.p_scanner.Interfaces.BarCodeInterfaces
-import com.example.p_scanner.Pojo.Item
-import com.example.p_scanner.Pojo.ItemInteractions
+import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
+import com.example.p_scanner.database.ItemsDatabase
+import com.example.p_scanner.interfaces.BarCodeInterfaces
+import com.example.p_scanner.pojo.Item
+import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
@@ -65,7 +64,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
 
         val db = ItemsDatabase.getDatabase(requireContext())
         val itemDAO = db.itemDAO()
-        barCodeAnalyzer = BarCodeAnalyzer(requireContext())
+        barCodeAnalyzer = BarCodeAnalyzer()
 
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
@@ -127,9 +126,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, BarCodeAnalyzer(
-                        requireContext()
-                    )
+                    it.setAnalyzer(cameraExecutor, barCodeAnalyzer!!
                     )
                 }
 

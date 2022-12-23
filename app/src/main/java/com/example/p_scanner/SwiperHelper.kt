@@ -1,7 +1,6 @@
 package com.example.p_scanner
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -11,7 +10,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.p_scanner.Interfaces.MyButtonListener
+import com.example.p_scanner.interfaces.MyButtonListener
 import java.util.*
 import kotlin.collections.ArrayList
 

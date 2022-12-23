@@ -1,22 +1,23 @@
-package com.example.p_scanner.BarCodeScanner
+package com.example.p_scanner.barcodescanner
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Rect
-import android.util.Size
-import android.widget.Toast
+import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.example.p_scanner.Interfaces.BarCodeInterfaces
+import com.example.p_scanner.interfaces.BarCodeInterfaces
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 
 var barCodeInterfaces:BarCodeInterfaces? = null
-class BarCodeAnalyzer(
-    private val context: Context
-) : ImageAnalysis.Analyzer {
+class BarCodeAnalyzer() : ImageAnalysis.Analyzer {
+
+
+    val options = BarcodeScannerOptions.Builder()
+        .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
+        .build()
+    val scanner = BarcodeScanning.getClient(options)
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(image: ImageProxy) {
@@ -25,19 +26,14 @@ class BarCodeAnalyzer(
 
             val inputImage = InputImage.fromMediaImage(img, image.imageInfo.rotationDegrees)
 
-            val options = BarcodeScannerOptions.Builder()
-                .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
-                .build()
-
-            val scanner = BarcodeScanning.getClient(options)
-
             scanner.process(inputImage)
-                .addOnSuccessListener { barcodes ->
+                .addOnSuccessListener {
+                    barcodes ->
                     if (barcodes.isNotEmpty()) {
+                        scanner.close()
                         barCodeInterfaces!!.onBarCodeDetection(barcodes[0])
-                        return@addOnSuccessListener
+                        Log.d("CurrentBarCode" ,barcodes[0].toString())
                     }
-
                 }
                 .addOnFailureListener { }
 

@@ -17,10 +17,13 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.p_scanner.BarCodeScanner.BarCodeAnalyzer
-import com.example.p_scanner.Pojo.ItemInteractions
-import com.example.p_scanner.ViewModels.ProductViewModel
+import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
+import com.example.p_scanner.pojo.ItemInteractions
+import com.example.p_scanner.viewmodels.ProductViewModel
 import com.example.p_scanner.databinding.FragmentScanningBinding
+import com.example.p_scanner.interfaces.BarCodeInterfaces
+import com.example.p_scanner.pojo.Item
+import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -33,6 +36,7 @@ class ScanningFragment : Fragment()  {
     lateinit var binding:FragmentScanningBinding
     var animator: ObjectAnimator? = null
     lateinit var productViewModel: ProductViewModel
+    var barCodeAnalyzer: BarCodeAnalyzer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +51,28 @@ class ScanningFragment : Fragment()  {
         super.onResume()
         productViewModel = ProductViewModel(this ,requireContext())
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
-
-        productViewModel.productBarCodeDetectLiveData.observe(this ,object:Observer<String>{
-            override fun onChanged(barcode: String?) {
-                Toast.makeText(context ,"THIS"+barcode.toString() , Toast.LENGTH_SHORT).show()
-                val intent = Intent(context , AddAndEditItemActivity::class.java)
-                intent.putExtra("ItemBarCode" ,barcode)
-                intent.putExtra("Interaction" , ItemInteractions.ADD)
+        barCodeAnalyzer = BarCodeAnalyzer()
+        barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
+            override fun onBarCodeDetection(barcode: Barcode) {
+                val intent = Intent(context ,AddAndEditItemActivity::class.java)
+                intent.putExtra("ItemBarCode" ,barcode.rawValue)
+                intent.putExtra("Interaction" ,ItemInteractions.ADD)
                 startActivity(intent)
-                return
             }
         })
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
+//        productViewModel.productBarCodeDetectLiveData.observe(this ,object:Observer<String>{
+//            override fun onChanged(barcode: String?) {
+//                Toast.makeText(context ,"THIS"+barcode.toString() , Toast.LENGTH_SHORT).show()
+//                val intent = Intent(context , AddAndEditItemActivity::class.java)
+//                intent.putExtra("ItemBarCode" ,barcode)
+//                intent.putExtra("Interaction" , ItemInteractions.ADD)
+//                startActivity(intent)
+//                return
+//            }
+//        })
 
         val viewTreeObserver = binding.scannerLayout.viewTreeObserver
 
@@ -89,7 +103,6 @@ class ScanningFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View {
 
-        Toast.makeText(context ,"OnCreatView", Toast.LENGTH_SHORT).show()
         return binding.root
     }
 
@@ -123,10 +136,7 @@ class ScanningFragment : Fragment()  {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, BarCodeAnalyzer(
-                        requireContext()
-                    )
-                    )
+                    it.setAnalyzer(cameraExecutor, barCodeAnalyzer!!)
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
@@ -134,9 +144,7 @@ class ScanningFragment : Fragment()  {
             try {
                 cameraProvider.unbindAll()
 
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
-                )
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
 
             } catch (exc: Exception) {
                 exc.printStackTrace()

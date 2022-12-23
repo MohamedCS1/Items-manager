@@ -1,10 +1,10 @@
-package com.example.p_scanner.DAO
+package com.example.p_scanner.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.p_scanner.Pojo.Item
+import com.example.p_scanner.pojo.Item
 
 @Dao
 interface ItemDAO {
