@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.p_scanner.dao.ItemDAO
 import com.example.p_scanner.pojo.Item
 
-@Database(entities = [Item::class] , version = 2)
+@Database(entities = [Item::class] , version = 4)
 abstract class ItemsDatabase:RoomDatabase() {
     abstract fun itemDAO():ItemDAO
     companion object{
@@ -16,8 +16,8 @@ abstract class ItemsDatabase:RoomDatabase() {
         fun getDatabase(context: Context): ItemsDatabase {
             return INSTANSE ?: synchronized(this){
                 val instanse = Room.databaseBuilder(
-                    context.applicationContext ,ItemsDatabase::class.java ,"Product Database"
-                ).fallbackToDestructiveMigration().build()
+                    context.applicationContext ,ItemsDatabase::class.java ,"Items Database"
+                ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 INSTANSE = instanse
                 instanse
             }

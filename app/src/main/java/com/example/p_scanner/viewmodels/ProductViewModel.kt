@@ -24,18 +24,19 @@ class ProductViewModel(owner: LifecycleOwner ,val context: Context):ViewModel() 
 
         itemLiveData.observeForever(object :Observer<Item>{
             override fun onChanged(item: Item?) {
-                    try {
-                        Log.d("CurrentItem" ,item.toString())
-                        repository.insertItem(Item(item!!.id ,item.name ,item.description ,item.price ,item.type))
-                        try {
-                            (context as Activity).finish()
-                        }catch (ex:Exception){}
-                    }catch (ex: SQLiteException){
-                        (context as Activity).runOnUiThread {
-                            Toast.makeText(context,"this product already exist" , Toast.LENGTH_SHORT).show()
-                        }
-                    }
 
+                if (!repository.itemIsExists(item!!.id))
+                {
+                    Toast.makeText(context ,"Add" ,Toast.LENGTH_SHORT).show()
+                    repository.insertItem(Item(item.id ,item.name ,item.description ,item.price ,item.type))
+                    (context as Activity).finish()
+                }
+                else
+                {
+                    (context as Activity).runOnUiThread {
+                        Toast.makeText(context ,"That item already exists" ,Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         })
 
