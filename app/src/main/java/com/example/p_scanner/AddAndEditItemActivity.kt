@@ -1,9 +1,11 @@
 package com.example.p_scanner
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.pojo.ItemType
@@ -23,12 +25,17 @@ class AddAndEditItemActivity : AppCompatActivity() {
         binding = ActivityAddAndEditItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        productViewModel = ProductViewModel(this ,this)
+        productViewModel = ProductViewModel(this)
 
         itemBarCode = intent.extras?.getString("ItemBarCode")?:""
 
         interactions = (intent.extras?.get("Interaction")?:ItemInteractions.ADD) as ItemInteractions
 
+        productViewModel.itemAddedLiveData.observeForever(object: Observer<String> {
+            override fun onChanged(t: String?) {
+                finish()
+            }
+        })
 
 
         try {

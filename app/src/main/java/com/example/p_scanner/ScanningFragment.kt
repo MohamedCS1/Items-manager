@@ -2,6 +2,7 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,12 +45,12 @@ class ScanningFragment : Fragment()  {
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
 
+
     }
 
 
     override fun onResume() {
         super.onResume()
-        productViewModel = ProductViewModel(this ,requireContext())
 
         barCodeAnalyzer = BarCodeAnalyzer()
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
@@ -62,17 +63,6 @@ class ScanningFragment : Fragment()  {
         })
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-//        productViewModel.productBarCodeDetectLiveData.observe(this ,object:Observer<String>{
-//            override fun onChanged(barcode: String?) {
-//                Toast.makeText(context ,"THIS"+barcode.toString() , Toast.LENGTH_SHORT).show()
-//                val intent = Intent(context , AddAndEditItemActivity::class.java)
-//                intent.putExtra("ItemBarCode" ,barcode)
-//                intent.putExtra("Interaction" , ItemInteractions.ADD)
-//                startActivity(intent)
-//                return
-//            }
-//        })
 
         val viewTreeObserver = binding.scannerLayout.viewTreeObserver
 

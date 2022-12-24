@@ -22,7 +22,7 @@ class ListItemsFragment : Fragment() {
     lateinit var productViewModel:ProductViewModel
         super.onCreate(savedInstanceState)
 
-        productViewModel = ProductViewModel(this ,requireContext())
+        productViewModel = ProductViewModel(requireContext())
 
         adapter = ProductsAdapter()
 
