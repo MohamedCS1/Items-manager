@@ -20,13 +20,14 @@
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/icon_back.xml" value="0.1935" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/item_bottom_nav.xml" value="0.1925" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/qr_code_reader_square.xml" value="0.188" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/ripple_effect.xml" value="0.2305" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/drawable/scanner.xml" value="0.2985" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_add_and_edit_item.xml" value="0.3625" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_add_product.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_main.xml" value="0.23177083333333334" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_splash_screen.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/activity_test.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/bootm_dialog.xml" value="0.4" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/bootm_dialog.xml" value="0.37328453796889294" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/card_item.xml" value="0.6297872340425532" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/card_product.xml" value="0.536" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/PScanner/app/src/main/res/layout/dialog_detect_item.xml" value="0.4" />

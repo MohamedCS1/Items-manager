@@ -44,6 +44,7 @@ class ListItemsFragment : Fragment() {
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
         val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.window?.setBackgroundDrawable(Color.TRANSPARENT)
         bottomSheetDialog.setContentView(R.layout.bootm_dialog)
 
         bottomSheetDialog.show()
