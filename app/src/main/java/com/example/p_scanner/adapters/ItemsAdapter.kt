@@ -19,8 +19,9 @@ class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {
         return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_item ,parent ,false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.title.text = arrayOfItems[position].name
+        holder.title.text = arrayOfItems[position].title
         holder.description.text = arrayOfItems[position].description
         holder.price.text = arrayOfItems[position].price+" DA"
         holder.buMenu.setOnClickListener {

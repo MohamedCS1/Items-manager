@@ -34,5 +34,10 @@ class Repository(itemDAO: ItemDAO) {
             itemDao.itemIsExists(id)
     }
 
-
+    fun updateItemById(id:String ,newTitle:String ,newDescription:String)
+    {
+        GlobalScope.launch {
+            itemDao.updateItemById(id ,newTitle ,newDescription)
+        }
+    }
 }

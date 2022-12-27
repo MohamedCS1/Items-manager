@@ -20,8 +20,11 @@ interface ItemDAO {
     fun getItemById(id:String):LiveData<Item>
 
     @Query("select exists(select * from ItemsTable where id=:id)")
-    fun itemIsExists(id : String) : Boolean
+    fun itemIsExists(id:String) : Boolean
 
-    @Query("delete from ItemsTable WHERE id =:id")
+    @Query("delete from ItemsTable where id =:id")
     fun deleteById(id:String)
+
+    @Query("update ItemsTable set title=:newTitle, description=:newDescription where id =:id")
+    fun updateItemById(id:String ,newTitle:String ,newDescription:String)
 }

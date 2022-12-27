@@ -1,5 +1,6 @@
 package com.example.p_scanner
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.p_scanner.adapters.ProductsAdapter
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.ItemClickListener
 import com.example.p_scanner.pojo.Item
+import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.repository.Repository
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -44,7 +46,10 @@ class ListItemsFragment : Fragment() {
                 val buEdit = bottomSheetDialog.findViewById<LinearLayout>(R.id.bu_edit)
                 val buDelete = bottomSheetDialog.findViewById<LinearLayout>(R.id.bu_remove)
                 buEdit?.setOnClickListener {
-                    Toast.makeText(requireContext() ,"Edit" ,Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext() ,AddAndEditItemActivity::class.java)
+                    intent.putExtra("Item" ,item)
+                    intent.putExtra("Interaction" ,ItemInteractions.EDIT)
+                    startActivity(intent)
                     bottomSheetDialog.hide()
                 }
                 buDelete?.setOnClickListener {

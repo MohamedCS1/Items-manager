@@ -1,23 +1,23 @@
 package com.example.p_scanner
 
-import android.app.Activity
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.pojo.ItemType
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.example.p_scanner.databinding.ActivityAddAndEditItemBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.p_scanner.repository.Repository
 
 class AddAndEditItemActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityAddAndEditItemBinding
     lateinit var productViewModel: ProductViewModel
     lateinit var interactions: ItemInteractions
+    lateinit var repository: Repository
     var itemBarCode: String? = null
     var item:Item? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,19 +37,19 @@ class AddAndEditItemActivity : AppCompatActivity() {
             }
         })
 
-
         try {
             item = intent.extras?.get("Item") as Item
         }catch (ex:Exception){}
 
         if (item != null && interactions == ItemInteractions.EDIT)
         {
-            Toast.makeText(this ,"In Item" ,Toast.LENGTH_SHORT).show()
-            binding.etId.setText(itemBarCode)
-            binding.etName.setText(item?.name?:"No Name")
+            binding.etId.setText(item!!.id)
+            binding.etName.setText(item?.title?:"No Name")
             binding.etDescription.setText(item?.description?:"No Description")
             binding.etPrice.setText(item?.price?:"No Price")
-
+            binding.buAddOrEditItem.text = "Edit"
+            binding.buAddOrEditItem.background.setTint(Color.parseColor("#F0CC5F"))
+//            binding.radioGroupeProductType
         }else if (itemBarCode != "" && interactions == ItemInteractions.ADD)
         {
             binding.etId.setText(itemBarCode)
@@ -75,8 +75,13 @@ class AddAndEditItemActivity : AppCompatActivity() {
             }
         })
 
-        binding.buAddItem.setOnClickListener {
-            productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etName.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+        binding.buAddOrEditItem.setOnClickListener {
+            if (interactions == ItemInteractions.ADD)
+            {
+                productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etName.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+            }else(interactions == ItemInteractions.EDIT)
+            {
+            }
         }
     }
 }

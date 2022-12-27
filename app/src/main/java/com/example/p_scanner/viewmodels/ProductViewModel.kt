@@ -27,7 +27,7 @@ class ProductViewModel(val context: Context):ViewModel() {
                 if (!repository.itemIsExists(item!!.id))
                 {
                     Handler(Looper.getMainLooper()).post { Toast.makeText(context ,"Add" ,Toast.LENGTH_SHORT).show() }
-                    repository.insertItem(Item(item.id ,item.name ,item.description ,item.price ,item.type))
+                    repository.insertItem(Item(item.id ,item.title ,item.description ,item.price ,item.type))
                     itemAddedLiveData.value = "Any"
                 }
                 else
