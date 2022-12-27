@@ -20,11 +20,14 @@ class Repository(itemDAO: ItemDAO) {
              itemDao.getItemById(id)
     }
 
-    fun getAllItems()
-    {
+    fun deleteItemById(id:String){
         GlobalScope.launch {
-            itemDao.getAllItems()
+            itemDao.deleteById(id)
         }
+    }
+
+    fun getAllItems():LiveData<List<Item>> = runBlocking {
+            itemDao.getAllItems()
     }
 
     fun itemIsExists(id:String):Boolean = runBlocking {

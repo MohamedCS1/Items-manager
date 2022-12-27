@@ -39,7 +39,7 @@ class ProductViewModel(val context: Context):ViewModel() {
 
 
 
-        itemDAO.getAllItems().observeForever(object :Observer<List<Item>>{
+        repository.getAllItems().observeForever(object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
                 listItemsLiveData.value = listItems!!
             }

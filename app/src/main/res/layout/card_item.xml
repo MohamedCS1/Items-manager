@@ -25,6 +25,7 @@
             android:textColor="#494949"/>
 
         <ImageView
+            android:id="@+id/buMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_vertical_dots"

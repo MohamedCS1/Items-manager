@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_gravity="bottom"
     android:background="@drawable/background_bottom_nav_bar"
+    android:theme="@style/TransparentBackgroundDialog"
     android:padding="@dimen/_10sdp">
 
     <LinearLayout
+        android:id="@+id/bu_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/ripple_effect"
+        android:clickable="true"
         android:focusable="true"
         android:padding="@dimen/_7sdp">
 
@@ -22,7 +26,6 @@
             android:src="@drawable/ic_edit"/>
 
         <TextView
-            android:id="@+id/bu_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit"
@@ -33,11 +36,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bu_remove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@drawable/ripple_effect"
+        android:clickable="true"
         android:focusable="true"
         android:padding="@dimen/_5sdp">
 
@@ -46,7 +51,6 @@
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_remove" />
         <TextView
-            android:id="@+id/bu_remove"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Remove"

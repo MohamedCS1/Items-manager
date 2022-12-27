@@ -2,6 +2,7 @@ package com.example.p_scanner.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.p_scanner.pojo.Item
@@ -18,7 +19,9 @@ interface ItemDAO {
     @Query("select * from ItemsTable where id=:id")
     fun getItemById(id:String):LiveData<Item>
 
-
     @Query("select exists(select * from ItemsTable where id=:id)")
     fun itemIsExists(id : String) : Boolean
+
+    @Query("delete from ItemsTable WHERE id =:id")
+    fun deleteById(id:String)
 }
