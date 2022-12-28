@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:background="#E5E5E5"
     tools:context=".SearchFragment">
+<ImageView
+    android:id="@+id/buTorch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_torch"/>
 
     <LinearLayout
         android:layout_width="match_parent"

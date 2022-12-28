@@ -2,30 +2,37 @@ package com.example.p_scanner
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.example.p_scanner.Utils.observeOnce
 import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
 import com.example.p_scanner.database.ItemsDatabase
+import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.example.p_scanner.interfaces.BarCodeInterfaces
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
-import com.example.p_scanner.databinding.FragmentSearchBinding
 import com.example.p_scanner.repository.Repository
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
@@ -33,6 +40,7 @@ import java.util.concurrent.Executors
 
 
 class SearchFragment(val owner: LifecycleOwner) : Fragment() {
+    private lateinit var camera: Camera
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding: FragmentSearchBinding
     var barCodeAnalyzer: BarCodeAnalyzer? = null
@@ -47,11 +55,22 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
+        var torchOn = false
+        binding.buTorch.setOnClickListener {
+            if (!torchOn)
+            {
+                camera.cameraControl.enableTorch(true)
+                torchOn = true
+            }
+            else
+            {
+                camera.cameraControl.enableTorch(false)
+                torchOn = false
+            }
+        }
         return binding.root
     }
-
     override fun onPause() {
         super.onPause()
         cameraExecutor.shutdown()
@@ -66,9 +85,8 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
 
     override fun onResume() {
         val repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
-        barCodeAnalyzer = BarCodeAnalyzer()
+        BarCodeAnalyzer().also { barCodeAnalyzer = it }
 
-        var i = 0
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
                 repository.getItemById(barcode.rawValue.toString()).observeOnce(owner,object :Observer<Item>{
@@ -141,6 +159,8 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageAnalyzer
                 )
+                camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
+                camera.cameraInfo.hasFlashUnit()
 
             } catch (exc: Exception) {
                 exc.printStackTrace()
