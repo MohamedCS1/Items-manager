@@ -10,13 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.example.p_scanner.Utils.observeOnce
 import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.BarCodeInterfaces
@@ -65,15 +68,16 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
         val repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
         barCodeAnalyzer = BarCodeAnalyzer()
 
+        var i = 0
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                repository.getItemById(barcode.rawValue.toString()).observe(owner,object :Observer<Item>{
+                repository.getItemById(barcode.rawValue.toString()).observeOnce(owner,object :Observer<Item>{
                         override fun onChanged(item:Item?) {
                             val intent = Intent(context ,AddAndEditItemActivity::class.java)
                             intent.putExtra("Item" ,item)
                             intent.putExtra("Interaction" ,ItemInteractions.EDIT)
                             startActivity(intent)
-                            return
+
                         }
                     })
             }

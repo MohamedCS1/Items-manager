@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
 import androidx.lifecycle.Observer
+import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.pojo.ItemType
@@ -27,15 +28,12 @@ class AddAndEditItemActivity : AppCompatActivity() {
 
         productViewModel = ProductViewModel(this)
 
+        repository = Repository(ItemsDatabase.getDatabase(this).itemDAO())
+
         itemBarCode = intent.extras?.getString("ItemBarCode")?:""
 
         interactions = (intent.extras?.get("Interaction")?:ItemInteractions.ADD) as ItemInteractions
 
-        productViewModel.itemAddedLiveData.observeForever(object: Observer<String> {
-            override fun onChanged(t: String?) {
-                finish()
-            }
-        })
 
         try {
             item = intent.extras?.get("Item") as Item
@@ -44,7 +42,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
         if (item != null && interactions == ItemInteractions.EDIT)
         {
             binding.etId.setText(item!!.id)
-            binding.etName.setText(item?.title?:"No Name")
+            binding.etTitle.setText(item?.title?:"No Name")
             binding.etDescription.setText(item?.description?:"No Description")
             binding.etPrice.setText(item?.price?:"No Price")
             binding.buAddOrEditItem.text = "Edit"
@@ -78,9 +76,12 @@ class AddAndEditItemActivity : AppCompatActivity() {
         binding.buAddOrEditItem.setOnClickListener {
             if (interactions == ItemInteractions.ADD)
             {
-                productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etName.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
-            }else(interactions == ItemInteractions.EDIT)
+                productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+                finish()
+            }else if (interactions == ItemInteractions.EDIT)
             {
+                repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString())
+                finish()
             }
         }
     }

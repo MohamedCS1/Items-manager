@@ -41,16 +41,8 @@ class ScanningFragment : Fragment()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Toast.makeText(context ,"OnCreate", Toast.LENGTH_SHORT).show()
 
         binding = FragmentScanningBinding.inflate(layoutInflater)
-
-
-    }
-
-
-    override fun onResume() {
-        super.onResume()
 
         barCodeAnalyzer = BarCodeAnalyzer()
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
@@ -61,6 +53,13 @@ class ScanningFragment : Fragment()  {
                 startActivity(intent)
             }
         })
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 

@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         listItemsFragment = ListItemsFragment()
         searchFragment = SearchFragment(this)
 
+        setFragment(scanningFragment)
+
         binding.buScanner.setOnClickListener {
             binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)
             binding.buScanner.setColorFilter(Color.parseColor("#5A6CF3"))
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                setFragment(scanningFragment)
+                return
             }
             else if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED)
             {

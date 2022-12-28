@@ -34,10 +34,10 @@ class Repository(itemDAO: ItemDAO) {
             itemDao.itemIsExists(id)
     }
 
-    fun updateItemById(id:String ,newTitle:String ,newDescription:String)
+    fun updateItemById(id:String ,newTitle:String ,newDescription:String ,newPrice:String)
     {
         GlobalScope.launch {
-            itemDao.updateItemById(id ,newTitle ,newDescription)
+            itemDao.updateItemById(id ,newTitle ,newDescription ,newPrice)
         }
     }
 }
