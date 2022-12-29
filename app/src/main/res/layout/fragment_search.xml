@@ -5,16 +5,22 @@
     android:layout_height="match_parent"
     android:background="#E5E5E5"
     tools:context=".SearchFragment">
-<ImageView
-    android:id="@+id/buTorch"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_torch"/>
+    <ImageView
+        android:id="@+id/buTorch"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/background_radius_second_color"
+        android:backgroundTint="#FFFFFF"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_torch"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/_50sdp"
         android:orientation="vertical">
 
         <View
