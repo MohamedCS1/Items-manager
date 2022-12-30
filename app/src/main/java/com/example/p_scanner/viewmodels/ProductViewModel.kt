@@ -14,6 +14,7 @@ class ProductViewModel(val context: Context):ViewModel() {
 
     val itemLiveData = MutableLiveData<Item>()
     val listItemsLiveData = MutableLiveData<List<Item>>()
+    var itemAddedLiveData = MutableLiveData<Boolean>()
 
     var itemDAO:ItemDAO = ItemsDatabase.getDatabase(context).itemDAO()
     var repository = Repository(itemDAO)
@@ -26,7 +27,7 @@ class ProductViewModel(val context: Context):ViewModel() {
                 if (!repository.itemIsExists(item!!.id))
                 {
                     Handler(Looper.getMainLooper()).post { Toast.makeText(context ,"Add" ,Toast.LENGTH_SHORT).show() }
-                    repository.insertItem(Item(item.id ,item.title ,item.description ,item.price ,item.type))
+                    itemAddedLiveData.value = repository.insertItem(Item(item.id ,item.title ,item.description ,item.price ,item.type))
                 }
                 else
                 {

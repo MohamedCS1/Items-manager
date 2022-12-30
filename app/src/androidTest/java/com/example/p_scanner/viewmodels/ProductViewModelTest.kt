@@ -1,10 +1,7 @@
 package com.example.p_scanner.viewmodels
 
 import android.content.Context
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -21,7 +18,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 
 
 @ExperimentalCoroutinesApi
@@ -36,7 +32,6 @@ class ProductViewModelTest {
 
     private lateinit var context: Context
     private lateinit var productViewModel: ProductViewModel
-    private lateinit var lifecycleOwner: LifecycleOwner
     private lateinit var database: ItemsDatabase
     private lateinit var itemDAO: ItemDAO
 

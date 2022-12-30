@@ -3,7 +3,10 @@ package com.example.p_scanner
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.pojo.Item
@@ -77,7 +80,19 @@ class AddAndEditItemActivity : AppCompatActivity() {
             if (interactions == ItemInteractions.ADD)
             {
                 productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
-                finish()
+                productViewModel.itemAddedLiveData.observeForever(object:Observer<Boolean>{
+                    override fun onChanged(t: Boolean?) {
+                        if (t == false)
+                        {
+                            Handler(Looper.getMainLooper()).post { Toast.makeText(baseContext ,"Enter All Information please" ,
+                                Toast.LENGTH_SHORT).show()}
+                        }
+                        else
+                        {
+                            finish()
+                        }
+                    }
+                })
             }else if (interactions == ItemInteractions.EDIT)
             {
                 repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString())

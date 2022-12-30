@@ -9,11 +9,14 @@ import kotlinx.coroutines.*
 class Repository(itemDAO: ItemDAO) {
     var itemDao:ItemDAO = itemDAO
 
-    fun insertItem(item: Item)
-    {
-        GlobalScope.launch {
-            itemDao.insertItem(item)
-        }
+    fun insertItem(item: Item):Boolean = runBlocking{
+        var itemInserted = false
+            if (item.title.isNotBlank() && item.description.isNotBlank() && item.price.isNotBlank())
+            {
+                itemDao.insertItem(item)
+                itemInserted = true
+            }
+        return@runBlocking itemInserted
     }
 
     fun getItemById(id:String):LiveData<Item> = runBlocking{
