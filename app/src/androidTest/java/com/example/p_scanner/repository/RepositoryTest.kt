@@ -37,7 +37,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun insertBlankTitleOrDescriptionOrPriceReturnFalse() {
+    fun testInsertBlankTitleOrDescriptionOrPriceReturnFalse() {
         runBlockingTest {
             val id = "34554343"
             val itemInserted = repository.insertItem(
@@ -52,6 +52,42 @@ class RepositoryTest {
             assertThat(itemInserted).isFalse()
         }
     }
+
+    @Test
+    fun testWriteAndRead() {
+        runBlockingTest {
+            val id = "34554343"
+            repository.insertItem(
+                Item(id, "Any Title", "Any Description", "12345", ItemType.PRODUCT)
+            )
+            val getItem = repository.getItemById(id).getOrAwaitValue()
+            assertThat(getItem.title == "Any Title").isTrue()
+            assertThat(getItem.description =="Any Description").isTrue()
+            assertThat(getItem.price == "12345").isTrue()
+        }
+    }
+
+    @Test
+    fun testGetAllItems()
+    {
+        runBlockingTest {
+            repository.insertItem(
+                Item("0", "Title 0", "Description 0", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(
+                Item("1", "Title 1", "Description 1", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(
+                Item("2", "Title 2", "Description 2", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(Item("3", "Title 3", "Description 3", "12345", ItemType.PRODUCT))
+
+           assertThat(repository.getAllItems().getOrAwaitValue()).containsExactly(Item("0", "Title 0", "Description 0", "12345", ItemType.PRODUCT) ,Item("1", "Title 1", "Description 1", "12345", ItemType.PRODUCT) ,Item("2", "Title 2", "Description 2", "12345", ItemType.PRODUCT) ,Item("3", "Title 3", "Description 3", "12345", ItemType.PRODUCT))
+        }
+    }
+
+    @Test
+    fun
 
 
 }

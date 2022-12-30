@@ -81,8 +81,8 @@ class AddAndEditItemActivity : AppCompatActivity() {
             {
                 productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
                 productViewModel.itemAddedLiveData.observeForever(object:Observer<Boolean>{
-                    override fun onChanged(t: Boolean?) {
-                        if (t == false)
+                    override fun onChanged(isAdded: Boolean?) {
+                        if (isAdded == false)
                         {
                             Handler(Looper.getMainLooper()).post { Toast.makeText(baseContext ,"Enter All Information please" ,
                                 Toast.LENGTH_SHORT).show()}
