@@ -37,7 +37,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testInsertBlankTitleOrDescriptionOrPriceReturnFalse() {
+    fun testEnterBlankInformationReturnFalse() {
         runBlockingTest {
             val id = "34554343"
             val itemInserted = repository.insertItem(
@@ -87,7 +87,49 @@ class RepositoryTest {
     }
 
     @Test
-    fun
+    fun testUpdateItemById()
+    {
+        runBlockingTest {
+            val id = "456564"
+            repository.insertItem(Item(id ,"Any Title" ,"Any Description" ,"23500" ,ItemType.PRODUCT))
+            repository.updateItemById(id ,"Updated Title" ,"Updated Description" ,"29000")
+
+            assertThat(repository.getItemById(id).getOrAwaitValue().title == "Updated Title").isTrue()
+            assertThat(repository.getItemById(id).getOrAwaitValue().description == "Updated Description").isTrue()
+            assertThat(repository.getItemById(id).getOrAwaitValue().price == "29000").isTrue()
+        }
+    }
+
+    @Test
+    fun testDeleteItemById()
+    {
+        runBlockingTest{
+            repository.insertItem(
+                Item("0", "Title 0", "Description 0", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(
+                Item("1", "Title 1", "Description 1", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(
+                Item("2", "Title 2", "Description 2", "12345", ItemType.PRODUCT)
+            )
+            repository.insertItem(Item("3", "Title 3", "Description 3", "12345", ItemType.PRODUCT))
+
+            repository.deleteItemById("2")
+
+            assertThat(repository.getItemById("2").getOrAwaitValue()).isNull()
+        }
+    }
+
+    @Test
+    fun testItemIsExists()
+    {
+        runBlockingTest {
+            val id = "2"
+            repository.insertItem(Item(id, "Title 2", "Description 2", "12345", ItemType.PRODUCT))
+            assertThat(repository.itemIsExists(id)).isTrue()
+        }
+    }
 
 
 }
