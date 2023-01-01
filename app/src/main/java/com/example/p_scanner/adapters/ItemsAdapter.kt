@@ -24,6 +24,7 @@ class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {
         holder.title.text = arrayOfItems[position].title
         holder.description.text = arrayOfItems[position].description
         holder.price.text = arrayOfItems[position].price+" DA"
+        holder.type.text = arrayOfItems[position].type.toString()
         holder.buMenu.setOnClickListener {
             itemClickListener.onClick(arrayOfItems[position])
         }
@@ -52,4 +53,5 @@ class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
     val description = itemView.findViewById<TextView>(R.id.description)
     val price = itemView.findViewById<TextView>(R.id.price)
     val buMenu = itemView.findViewById<ImageView>(R.id.buMenu)
+    val type = itemView.findViewById<TextView>(R.id.type)
 }

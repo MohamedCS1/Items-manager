@@ -42,14 +42,30 @@
         android:textSize="@dimen/_12ssp"
         android:textColor="#B1B1B1"/>
 
-
-    <TextView
-        android:id="@+id/price"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1042434 DA"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        android:gravity="end"
-        android:textColor="@color/my_orange"/>
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="type"
+            android:textSize="@dimen/_12ssp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:textColor="#FFC107"/>
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1042434 DA"
+            android:textSize="@dimen/_15ssp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="end"
+            android:textColor="@color/my_orange"/>
+    </LinearLayout>
 </LinearLayout>

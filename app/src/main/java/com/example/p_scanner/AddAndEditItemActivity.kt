@@ -65,7 +65,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
         }
 
         var itemType = ItemType.PRODUCT
-        binding.radioGroupeProductType.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
+        binding.radioGroupeItemType.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                 when (checkedId)
                 {

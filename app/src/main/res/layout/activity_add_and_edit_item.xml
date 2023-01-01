@@ -59,7 +59,7 @@
             android:layout_marginBottom="@dimen/_15sdp"
             android:gravity="center">
             <RadioGroup
-                android:id="@+id/radioGroupeProductType"
+                android:id="@+id/radioGroupeItemType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="Product"
                     android:textColor="#3A3C3F"
+                    android:checked="true"
                     android:buttonTint="@color/black"
                     android:textSize="@dimen/_11ssp"
                     android:layout_marginStart="@dimen/_10sdp"/>
