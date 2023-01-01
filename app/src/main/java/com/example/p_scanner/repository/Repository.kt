@@ -3,6 +3,7 @@ package com.example.p_scanner.repository
 import androidx.lifecycle.LiveData
 import com.example.p_scanner.dao.ItemDAO
 import com.example.p_scanner.pojo.Item
+import com.example.p_scanner.pojo.ItemType
 import kotlinx.coroutines.*
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -37,10 +38,10 @@ class Repository(itemDAO: ItemDAO) {
             itemDao.itemIsExists(id)
     }
 
-    fun updateItemById(id:String ,newTitle:String ,newDescription:String ,newPrice:String)
+    fun updateItemById(id:String ,newTitle:String ,newDescription:String ,newPrice:String ,newType:ItemType)
     {
         GlobalScope.launch {
-            itemDao.updateItemById(id ,newTitle ,newDescription ,newPrice)
+            itemDao.updateItemById(id ,newTitle ,newDescription ,newPrice ,newType)
         }
     }
 }

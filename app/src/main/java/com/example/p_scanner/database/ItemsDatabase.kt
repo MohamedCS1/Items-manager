@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.p_scanner.dao.ItemDAO
 import com.example.p_scanner.pojo.Item
 
-@Database(entities = [Item::class] , version = 5)
+@Database(entities = [Item::class] , version = 6)
 abstract class ItemsDatabase:RoomDatabase() {
     abstract fun itemDAO():ItemDAO
     companion object{

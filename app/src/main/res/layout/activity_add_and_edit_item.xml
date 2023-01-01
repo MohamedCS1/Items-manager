@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton
-                    android:id="@+id/buService"
+                    android:id="@+id/radioButtonService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Service"
@@ -73,7 +73,7 @@
                     android:textColor="#3A3C3F"
                     android:layout_marginEnd="@dimen/_10sdp"/>
                 <RadioButton
-                    android:id="@+id/buProduct"
+                    android:id="@+id/radioButtonProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product"

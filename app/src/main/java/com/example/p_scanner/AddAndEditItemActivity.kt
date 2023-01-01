@@ -50,7 +50,11 @@ class AddAndEditItemActivity : AppCompatActivity() {
             binding.etPrice.setText(item?.price?:"No Price")
             binding.buAddOrEditItem.text = "Edit"
             binding.buAddOrEditItem.background.setTint(Color.parseColor("#F0CC5F"))
-//            binding.radioGroupeProductType
+            if (item!!.type == ItemType.PRODUCT){
+                binding.radioButtonProduct.isChecked = true
+            }else{
+                binding.radioButtonService.isChecked = true
+            }
         }else if (itemBarCode != "" && interactions == ItemInteractions.ADD)
         {
             binding.etId.setText(itemBarCode)
@@ -69,9 +73,9 @@ class AddAndEditItemActivity : AppCompatActivity() {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                 when (checkedId)
                 {
-                    binding.buProduct.id -> itemType = ItemType.PRODUCT
+                    binding.radioButtonProduct.id -> itemType = ItemType.PRODUCT
 
-                    binding.buService.id -> itemType = ItemType.SERVICE
+                    binding.radioButtonService.id -> itemType = ItemType.SERVICE
                 }
             }
         })
@@ -95,7 +99,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
                 })
             }else if (interactions == ItemInteractions.EDIT)
             {
-                repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString())
+                repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
                 finish()
             }
         }

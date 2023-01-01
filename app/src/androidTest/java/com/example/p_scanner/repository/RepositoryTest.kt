@@ -92,11 +92,12 @@ class RepositoryTest {
         runBlockingTest {
             val id = "456564"
             repository.insertItem(Item(id ,"Any Title" ,"Any Description" ,"23500" ,ItemType.PRODUCT))
-            repository.updateItemById(id ,"Updated Title" ,"Updated Description" ,"29000")
+            repository.updateItemById(id ,"Updated Title" ,"Updated Description" ,"29000" ,ItemType.SERVICE)
 
             assertThat(repository.getItemById(id).getOrAwaitValue().title == "Updated Title").isTrue()
             assertThat(repository.getItemById(id).getOrAwaitValue().description == "Updated Description").isTrue()
             assertThat(repository.getItemById(id).getOrAwaitValue().price == "29000").isTrue()
+            assertThat(repository.getItemById(id).getOrAwaitValue().type == ItemType.SERVICE).isTrue()
         }
     }
 
