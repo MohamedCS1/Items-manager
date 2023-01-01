@@ -24,7 +24,7 @@ interface ItemDAO {
     fun itemIsExists(id:String) : Boolean
 
     @Query("delete from ItemsTable where id =:id")
-    fun deleteById(id:String)
+    fun deleteItemById(id:String)
 
     @Query("update ItemsTable set title=:newTitle, description=:newDescription ,price=:newPrice ,type=:newType where id =:id")
     fun updateItemById(id:String ,newTitle:String ,newDescription:String ,newPrice:String ,newType:ItemType)

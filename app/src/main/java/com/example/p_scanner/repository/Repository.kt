@@ -26,7 +26,7 @@ class Repository(itemDAO: ItemDAO) {
 
     fun deleteItemById(id:String){
         GlobalScope.launch {
-            itemDao.deleteById(id)
+            itemDao.deleteItemById(id)
         }
     }
 

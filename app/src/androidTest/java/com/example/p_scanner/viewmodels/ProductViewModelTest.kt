@@ -12,7 +12,7 @@ import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemType
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -52,7 +52,7 @@ class ProductViewModelTest {
     @Test
     fun testViewModel()
     {
-        runBlockingTest {
+        runTest {
 
           productViewModel.itemLiveData.value =  Item("67576", "Any Product", "Some Description", "6776567", ItemType.PRODUCT)
           val it = productViewModel.itemLiveData.getOrAwaitValue()
