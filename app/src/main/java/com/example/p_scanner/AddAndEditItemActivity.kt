@@ -99,8 +99,16 @@ class AddAndEditItemActivity : AppCompatActivity() {
                 })
             }else if (interactions == ItemInteractions.EDIT)
             {
-                repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
-                finish()
+                if (binding.etId.text.toString().isNotBlank() && binding.etTitle.text.toString().isNotBlank() && binding.etDescription.text.toString().isNotBlank() && binding.etPrice.text.toString().isNotBlank())
+                {
+                    repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+                    finish()
+                }
+                else{
+                    Handler(Looper.getMainLooper()).post { Toast.makeText(baseContext ,"Enter All Information please" ,
+                        Toast.LENGTH_SHORT).show()}
+                }
+
             }
         }
     }

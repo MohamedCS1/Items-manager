@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +22,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 class ListItemsFragment : Fragment() {
     lateinit var adapter: ProductsAdapter
     lateinit var repository: Repository
-
-    override fun onCreate(savedInstanceState: Bundle?) {
     lateinit var productViewModel:ProductViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
 
@@ -66,7 +64,7 @@ class ListItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list_items, container, false)
-        val rv = view.findViewById<RecyclerView>(R.id.rv_products)
+        val rv = view.findViewById<RecyclerView>(R.id.rv_items)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
 
