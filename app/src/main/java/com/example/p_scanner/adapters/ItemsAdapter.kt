@@ -11,16 +11,16 @@ import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.R
 import com.example.p_scanner.interfaces.ItemClickListener
 
-class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {
+class ProductsAdapter:RecyclerView.Adapter<ItemViewHolder>() {
 
     var arrayOfItems = arrayListOf<Item>()
     lateinit var itemClickListener:ItemClickListener
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_item ,parent ,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_item ,parent ,false))
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.title.text = arrayOfItems[position].title
         holder.description.text = arrayOfItems[position].description
         holder.price.text = arrayOfItems[position].price+" DA"
@@ -47,7 +47,7 @@ class ProductsAdapter:RecyclerView.Adapter<ProductViewHolder>() {
     }
 }
 
-class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
+class ItemViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
 {
     val title = itemView.findViewById<TextView>(R.id.title)
     val description = itemView.findViewById<TextView>(R.id.description)

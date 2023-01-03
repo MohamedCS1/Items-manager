@@ -1,9 +1,13 @@
 package com.example.p_scanner
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.example.p_scanner.adapters.ItemViewHolder
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemType
 import org.junit.Rule
@@ -21,6 +25,8 @@ class ListItemsFragmentTest{
     @Test
     fun testIsListItemsFragmentVisible()
     {
-        onView(withId(R.id.rv_items)).perform(RecyclerViewActions.actionOnItemAtPosition<>())
+        onView(withId(R.id.rv_items)).perform(RecyclerViewActions.actionOnItemAtPosition<ItemViewHolder>(positionClicking,click()))
+
+        onView(withId(R.id.title)).check(matches(withText(itemsInTest.first().title)))
     }
 }
