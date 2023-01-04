@@ -1,4 +1,4 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.listItems
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,12 +10,14 @@ import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.p_scanner.R
 import com.example.p_scanner.adapters.ProductsAdapter
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.ItemClickListener
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
 import com.example.p_scanner.repository.Repository
+import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -38,13 +40,15 @@ class ListItemsFragment : Fragment() {
 
         adapter.onItemClick(object :ItemClickListener{
             override fun onClick(item: Item) {
-                val bottomSheetDialog = BottomSheetDialog(requireContext() , R.style.TransparentBackgroundDialog)
+                val bottomSheetDialog = BottomSheetDialog(requireContext() ,
+                    R.style.TransparentBackgroundDialog
+                )
                 bottomSheetDialog.setContentView(R.layout.bottom_dialog)
                 bottomSheetDialog.show()
                 val buEdit = bottomSheetDialog.findViewById<LinearLayout>(R.id.bu_edit)
                 val buDelete = bottomSheetDialog.findViewById<LinearLayout>(R.id.bu_remove)
                 buEdit?.setOnClickListener {
-                    val intent = Intent(requireContext() ,AddAndEditItemActivity::class.java)
+                    val intent = Intent(requireContext() , AddAndEditItemActivity::class.java)
                     intent.putExtra("Item" ,item)
                     intent.putExtra("Interaction" ,ItemInteractions.EDIT)
                     startActivity(intent)

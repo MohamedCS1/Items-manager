@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:fillViewport="true"
 
-    tools:context=".SplashScreenActivity">
+    tools:context=".ui.splashScreen.SplashScreenActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

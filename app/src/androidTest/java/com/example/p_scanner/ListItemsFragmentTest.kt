@@ -10,6 +10,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.p_scanner.adapters.ItemViewHolder
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemType
+import com.example.p_scanner.ui.main.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

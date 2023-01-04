@@ -1,4 +1,4 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.addOrEditItems
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity

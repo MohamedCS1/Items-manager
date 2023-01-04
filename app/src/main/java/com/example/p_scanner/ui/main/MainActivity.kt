@@ -1,4 +1,4 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,8 +10,11 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.fragment.app.Fragment
+import com.example.p_scanner.ui.listItems.ListItemsFragment
+import com.example.p_scanner.R
+import com.example.p_scanner.ui.scanning.ScanningFragment
+import com.example.p_scanner.ui.searching.SearchFragment
 import com.example.p_scanner.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun setFragment(fragment: Fragment)
     {
         val fr = supportFragmentManager.beginTransaction()
-        fr.replace(R.id.fragment_container ,fragment)
+        fr.replace(R.id.fragment_container,fragment)
         fr.commit()
     }
 

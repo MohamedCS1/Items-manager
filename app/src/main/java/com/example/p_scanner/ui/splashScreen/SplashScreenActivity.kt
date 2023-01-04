@@ -1,9 +1,10 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.splashScreen
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.p_scanner.databinding.ActivitySplashScreenBinding
+import com.example.p_scanner.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buStart.setOnClickListener {
-            startActivity(Intent(this ,MainActivity::class.java))
+            startActivity(Intent(this , MainActivity::class.java))
 
         }
     }

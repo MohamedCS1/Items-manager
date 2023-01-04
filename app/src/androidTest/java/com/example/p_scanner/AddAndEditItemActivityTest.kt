@@ -10,6 +10,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
+import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test

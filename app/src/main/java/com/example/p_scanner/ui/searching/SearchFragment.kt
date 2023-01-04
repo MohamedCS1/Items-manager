@@ -1,15 +1,8 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.searching
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.Utils.observeOnce
 import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
 import com.example.p_scanner.database.ItemsDatabase
@@ -91,7 +84,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
             override fun onBarCodeDetection(barcode: Barcode) {
                 repository.getItemById(barcode.rawValue.toString()).observeOnce(owner,object :Observer<Item>{
                         override fun onChanged(item:Item?) {
-                            val intent = Intent(context ,AddAndEditItemActivity::class.java)
+                            val intent = Intent(context , AddAndEditItemActivity::class.java)
                             intent.putExtra("Item" ,item)
                             intent.putExtra("Interaction" ,ItemInteractions.EDIT)
                             startActivity(intent)

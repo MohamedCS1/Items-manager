@@ -1,8 +1,7 @@
-package com.example.p_scanner
+package com.example.p_scanner.ui.scanning
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -18,13 +16,11 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.barcodescanner.BarCodeAnalyzer
 import com.example.p_scanner.pojo.ItemInteractions
-import com.example.p_scanner.viewmodels.ProductViewModel
 import com.example.p_scanner.databinding.FragmentScanningBinding
 import com.example.p_scanner.interfaces.BarCodeInterfaces
-import com.example.p_scanner.pojo.Item
 import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -48,7 +44,7 @@ class ScanningFragment : Fragment()  {
         barCodeAnalyzer = BarCodeAnalyzer()
         barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
             override fun onBarCodeDetection(barcode: Barcode) {
-                val intent = Intent(context ,AddAndEditItemActivity::class.java)
+                val intent = Intent(context , AddAndEditItemActivity::class.java)
                 intent.putExtra("ItemBarCode" ,barcode.rawValue)
                 intent.putExtra("Interaction" ,ItemInteractions.ADD)
                 startActivity(intent)
