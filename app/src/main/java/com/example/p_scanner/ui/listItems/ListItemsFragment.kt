@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.p_scanner.R
-import com.example.p_scanner.adapters.ProductsAdapter
+import com.example.p_scanner.adapters.ItemsAdapter
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.ItemClickListener
 import com.example.p_scanner.pojo.Item
@@ -22,14 +22,14 @@ import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ListItemsFragment : Fragment() {
-    lateinit var adapter: ProductsAdapter
+    lateinit var adapter: ItemsAdapter
     lateinit var repository: Repository
     lateinit var productViewModel:ProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
 
-        adapter = ProductsAdapter()
+        adapter = ItemsAdapter()
         repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
 
         productViewModel.listItemsLiveData.observe(this,object :Observer<List<Item>>{

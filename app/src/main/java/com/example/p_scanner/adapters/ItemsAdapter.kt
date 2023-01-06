@@ -11,7 +11,7 @@ import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.R
 import com.example.p_scanner.interfaces.ItemClickListener
 
-class ProductsAdapter:RecyclerView.Adapter<ItemViewHolder>() {
+class ItemsAdapter:RecyclerView.Adapter<ItemViewHolder>() {
 
     var arrayOfItems = arrayListOf<Item>()
     lateinit var itemClickListener:ItemClickListener

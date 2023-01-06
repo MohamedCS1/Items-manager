@@ -117,7 +117,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
             }
         })
 
-        startCamera()
+//        startCamera()
         super.onResume()
     }
     override fun onDestroy() {
@@ -148,10 +148,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
 
             try {
                 cameraProvider.unbindAll()
-
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
-                )
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
                 camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
                 camera.cameraInfo.hasFlashUnit()
 

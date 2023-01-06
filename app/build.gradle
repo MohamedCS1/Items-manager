@@ -45,6 +45,7 @@ dependencies {
     implementation 'androidx.test:rules:1.5.0'
     implementation 'androidx.test:core-ktx:1.5.0'
     implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    debugImplementation 'androidx.fragment:fragment-testing:1.5.5'
 
     //Test
     testImplementation 'junit:junit:4.13.2'
@@ -82,6 +83,9 @@ dependencies {
     implementation "androidx.camera:camera-mlkit-vision:${camerax_version}"
     // If you want to additionally use the CameraX Extensions library
     implementation "androidx.camera:camera-extensions:${camerax_version}"
+
+    // Guava
+    implementation "com.google.guava:guava:31.0.1-android"
 
     // RoomDB
     def room_version = "2.4.3"
