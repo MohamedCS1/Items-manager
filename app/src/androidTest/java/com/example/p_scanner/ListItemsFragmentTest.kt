@@ -20,6 +20,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.ActivityTestRule
+import com.example.p_scanner.Utils.atPosition
 import com.example.p_scanner.adapters.ItemViewHolder
 import com.example.p_scanner.adapters.ItemsAdapter
 import com.example.p_scanner.dao.ItemDAO
@@ -63,7 +64,7 @@ class ListItemsFragmentTest{
     fun testIsListItemsFragmentVisible()
     {
         onView(withId(R.id.rv_items)).perform(RecyclerViewActions.actionOnItemAtPosition<ItemViewHolder>(positionClicking,click()))
-        onView(withId(R.id.rv_items))
-            .perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("Text of item you want to scroll to")), click()))
+
+        onView(withId(R.id.rv_items)).check(matches(atPosition(1, hasDescendant(withText(itemsInTest[0].title)))))
     }
 }
