@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.p_scanner.Utils.getOrAwaitValue
 import com.example.p_scanner.dao.ItemDAO
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.pojo.Item

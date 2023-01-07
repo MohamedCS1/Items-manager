@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
     }
 
-    public fun setFragment(fragment: Fragment)
+    fun setFragment(fragment: Fragment)
     {
         val fr = supportFragmentManager.beginTransaction()
         fr.replace(R.id.fragment_container,fragment)

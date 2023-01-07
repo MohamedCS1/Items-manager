@@ -33,7 +33,7 @@ class ScanningFragment : Fragment()  {
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
     var animator: ObjectAnimator? = null
-//    private lateinit var camera: Camera
+    private lateinit var camera: Camera
     var barCodeAnalyzer: BarCodeAnalyzer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,19 +89,19 @@ class ScanningFragment : Fragment()  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        var torchOn = false
-//        binding.buTorch.setOnClickListener {
-//            if (!torchOn)
-//            {
-//                camera.cameraControl.enableTorch(true)
-//                torchOn = true
-//            }
-//            else
-//            {
-//                camera.cameraControl.enableTorch(false)
-//                torchOn = false
-//            }
-//        }
+        var torchOn = false
+        binding.buTorch.setOnClickListener {
+            if (!torchOn)
+            {
+                camera.cameraControl.enableTorch(true)
+                torchOn = true
+            }
+            else
+            {
+                camera.cameraControl.enableTorch(false)
+                torchOn = false
+            }
+        }
         return binding.root
     }
 
@@ -143,8 +143,8 @@ class ScanningFragment : Fragment()  {
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
-//                camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
-//                camera.cameraInfo.hasFlashUnit()
+                camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
+                camera.cameraInfo.hasFlashUnit()
             } catch (exc: Exception) {
                 exc.printStackTrace()
             }
