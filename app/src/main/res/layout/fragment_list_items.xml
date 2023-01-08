@@ -12,7 +12,8 @@
         android:id="@+id/drug_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/background_search_view"
+        android:backgroundTint="@color/colorPrimary"
         android:elevation="0dp"
         app:elevation="0dp"
         >
@@ -24,8 +25,8 @@
             android:layout_marginRight="@dimen/_5sdp"
 
             >
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/drugs_searchbar"
+            <SearchView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -34,11 +35,10 @@
                 android:backgroundTint="#FFFFFF"
                 app:defaultQueryHint="title or price"
                 android:textColor="@color/black"
-                app:layout_collapseMode="parallax"
                 app:theme="@style/AppTheme.Toolbar"
                 >
 
-            </androidx.appcompat.widget.SearchView>
+            </SearchView>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -46,6 +46,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.recyclerview.widget.RecyclerView

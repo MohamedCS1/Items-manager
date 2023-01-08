@@ -1,5 +1,6 @@
 package com.example.p_scanner.ui.listItems
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.p_scanner.R
 import com.example.p_scanner.adapters.ItemsAdapter
+import com.example.p_scanner.barcodescanner.barCodeInterfaces
 import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.ItemClickListener
 import com.example.p_scanner.pojo.Item
@@ -25,6 +29,8 @@ class ListItemsFragment : Fragment() {
     lateinit var adapter: ItemsAdapter
     lateinit var repository: Repository
     lateinit var productViewModel:ProductViewModel
+    lateinit var searchView:SearchView
+    lateinit var arrayOfItems:ArrayList<Item>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
@@ -32,9 +38,12 @@ class ListItemsFragment : Fragment() {
         adapter = ItemsAdapter()
         repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
 
+
+
         productViewModel.listItemsLiveData.observe(this,object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
                 adapter.setList(listItems!! as ArrayList<Item>)
+                arrayOfItems = listItems as ArrayList<Item>
             }
         })
 
@@ -61,7 +70,9 @@ class ListItemsFragment : Fragment() {
             }
         })
 
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +82,17 @@ class ListItemsFragment : Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.rv_items)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
+        searchView = view.findViewById<SearchView>(R.id.searchView)
+        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filterBy(newText!! ,arrayOfItems)
+                return true
+            }
+        })
         return view
     }
 

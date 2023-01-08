@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.R
 import com.example.p_scanner.interfaces.ItemClickListener
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ItemsAdapter:RecyclerView.Adapter<ItemViewHolder>() {
 
@@ -45,6 +47,33 @@ class ItemsAdapter:RecyclerView.Adapter<ItemViewHolder>() {
     {
         this.itemClickListener = listener
     }
+
+    fun filterBy(text: String, arrayOfItem:ArrayList<Item>)
+    {
+        val listfilter = arrayListOf<Item>()
+        if (text.isBlank())
+        {
+            filterlist(arrayOfItem)
+            return
+        }
+
+        for (item in arrayOfItem)
+        {
+            if (item.title.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))||item.price.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault())))
+            {
+                listfilter.add(item)
+            }
+        }
+        filterlist(listfilter)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterlist(filterlist:ArrayList<Item>)
+    {
+        arrayOfItems = filterlist
+        notifyDataSetChanged()
+    }
+
 }
 
 class ItemViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
