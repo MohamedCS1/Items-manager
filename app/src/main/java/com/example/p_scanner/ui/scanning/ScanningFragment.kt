@@ -49,6 +49,8 @@ class ScanningFragment : Fragment()  {
                 startActivity(intent)
             }
         })
+
+
     }
 
 

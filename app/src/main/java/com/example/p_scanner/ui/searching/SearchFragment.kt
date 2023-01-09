@@ -3,6 +3,7 @@ package com.example.p_scanner.ui.searching
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                         if (item == null)
                         {
                             Toast.makeText(requireContext(),"This item not found" ,Toast.LENGTH_SHORT).show()
+                            binding.buTryAgain.visibility = View.VISIBLE
                             return
                         }
                         val intent = Intent(context , AddAndEditItemActivity::class.java)
@@ -64,6 +66,13 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                 })
             }
         })
+        binding.buTryAgain.setOnClickListener {
+            cameraExecutor = Executors.newSingleThreadExecutor()
+            startCamera()
+            binding.buTryAgain.visibility = View.INVISIBLE
+
+        }
+
     }
 
     override fun onCreateView(

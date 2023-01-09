@@ -17,7 +17,19 @@
         android:backgroundTint="#FFFFFF"
         android:padding="@dimen/_5sdp"
         android:src="@drawable/ic_torch"/>
-
+    <ImageView
+        android:id="@+id/buTryAgain"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:visibility="invisible"
+        android:background="@drawable/background_radius_second_color"
+        android:backgroundTint="#FFFFFF"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_try_again"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
