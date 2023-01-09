@@ -29,7 +29,6 @@ import java.util.concurrent.Executors
 
 
 class ScanningFragment : Fragment()  {
-
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding:FragmentScanningBinding
     var animator: ObjectAnimator? = null
@@ -50,38 +49,6 @@ class ScanningFragment : Fragment()  {
                 startActivity(intent)
             }
         })
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-
-        BarCodeAnalyzer().also { barCodeAnalyzer = it }
-
-        cameraExecutor = Executors.newSingleThreadExecutor()
-
-        val viewTreeObserver = binding.scannerLayout.viewTreeObserver
-
-        viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
-            override fun onGlobalLayout() {
-                binding.scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                animator = ObjectAnimator.ofFloat(
-                    binding.scannerBar, "translationY",
-                    binding.scannerLayout.y-20,
-                    (binding.scannerLayout.y +
-                            binding.scannerLayout.height))
-
-                animator!!.repeatMode = ValueAnimator.REVERSE
-                animator!!.repeatCount = ValueAnimator.INFINITE
-                animator!!.interpolator = AccelerateDecelerateInterpolator()
-                animator!!.duration = 3000
-                animator!!.start()
-            }
-        })
-
-        startCamera()
     }
 
 
@@ -112,13 +79,37 @@ class ScanningFragment : Fragment()  {
         startCamera()
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        cameraExecutor = Executors.newSingleThreadExecutor()
 
+        val viewTreeObserver = binding.scannerLayout.viewTreeObserver
+
+        viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                binding.scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                animator = ObjectAnimator.ofFloat(
+                    binding.scannerBar, "translationY",
+                    binding.scannerLayout.y-20,
+                    (binding.scannerLayout.y +
+                            binding.scannerLayout.height))
+
+                animator!!.repeatMode = ValueAnimator.REVERSE
+                animator!!.repeatCount = ValueAnimator.INFINITE
+                animator!!.interpolator = AccelerateDecelerateInterpolator()
+                animator!!.duration = 3000
+                animator!!.start()
+            }
+        })
+
+        startCamera()
+    }
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
     }
-
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 

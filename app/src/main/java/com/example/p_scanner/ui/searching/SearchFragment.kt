@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -37,12 +38,32 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
     lateinit var cameraExecutor: ExecutorService
     lateinit var binding: FragmentSearchBinding
     var barCodeAnalyzer: BarCodeAnalyzer? = null
-
     var animator: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentSearchBinding.inflate(layoutInflater)
+
+        barCodeAnalyzer = BarCodeAnalyzer()
+        val repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
+        barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
+            override fun onBarCodeDetection(barcode: Barcode) {
+                repository.getItemById(barcode.rawValue.toString()).observeOnce(owner,object :Observer<Item>{
+                    override fun onChanged(item:Item?) {
+                        if (item == null)
+                        {
+                            Toast.makeText(requireContext(),"This item not found" ,Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                        val intent = Intent(context , AddAndEditItemActivity::class.java)
+                        intent.putExtra("Item" ,item)
+                        intent.putExtra("Interaction" ,ItemInteractions.EDIT)
+                        startActivity(intent)
+                        return
+                    }
+                })
+            }
+        })
     }
 
     override fun onCreateView(
@@ -64,10 +85,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
         }
         return binding.root
     }
-    override fun onPause() {
-        super.onPause()
-        cameraExecutor.shutdown()
-    }
+
 
     override fun onStart() {
         super.onStart()
@@ -75,31 +93,14 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
         startCamera()
     }
 
-
     override fun onResume() {
-        val repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
-        BarCodeAnalyzer().also { barCodeAnalyzer = it }
-
-        barCodeAnalyzer!!.onBarCodeDetection(object : BarCodeInterfaces {
-            override fun onBarCodeDetection(barcode: Barcode) {
-                repository.getItemById(barcode.rawValue.toString()).observeOnce(owner,object :Observer<Item>{
-                        override fun onChanged(item:Item?) {
-                            val intent = Intent(context , AddAndEditItemActivity::class.java)
-                            intent.putExtra("Item" ,item)
-                            intent.putExtra("Interaction" ,ItemInteractions.EDIT)
-                            startActivity(intent)
-
-                        }
-                    })
-            }
-        })
+        super.onResume()
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-
         val viewTreeObserver = binding.scannerLayout.viewTreeObserver
 
-        viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener{
+        viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
             override fun onGlobalLayout() {
                 binding.scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
@@ -117,8 +118,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
             }
         })
 
-//        startCamera()
-        super.onResume()
+        startCamera()
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -140,8 +140,7 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, barCodeAnalyzer!!
-                    )
+                    it.setAnalyzer(cameraExecutor,  BarCodeAnalyzer())
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
@@ -151,11 +150,9 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
                 camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
                 camera.cameraInfo.hasFlashUnit()
-
             } catch (exc: Exception) {
                 exc.printStackTrace()
             }
         }, ContextCompat.getMainExecutor(requireContext()))
     }
-
 }
