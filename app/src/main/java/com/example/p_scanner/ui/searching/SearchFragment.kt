@@ -81,15 +81,12 @@ class SearchFragment(val owner: LifecycleOwner) : Fragment() {
     ): View {
         var torchOn = false
         binding.buTorch.setOnClickListener {
-            if (!torchOn)
-            {
+            torchOn = if (!torchOn) {
                 camera.cameraControl.enableTorch(true)
-                torchOn = true
-            }
-            else
-            {
+                true
+            } else {
                 camera.cameraControl.enableTorch(false)
-                torchOn = false
+                false
             }
         }
         return binding.root
