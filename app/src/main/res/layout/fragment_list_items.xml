@@ -7,6 +7,16 @@
     android:background="#E5E5E5"
     tools:context=".ui.listItems.ListItemsFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No item found"
+        android:textSize="@dimen/_13ssp"
+        android:textColor="#A9000000"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/drug_appbar"

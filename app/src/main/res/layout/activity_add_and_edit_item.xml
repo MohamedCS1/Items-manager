@@ -127,7 +127,7 @@
             android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
-            android:hint="Title or name the product"
+            android:hint="Enter title"
             android:textColorHint="#424D59"
             android:layout_marginBottom="@dimen/_20sdp"/>
 
@@ -150,7 +150,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
-            android:hint="Discribe your product"
+            android:hint="Enter description"
             android:gravity="start"
             android:textColorHint="#424D59"
             android:layout_marginBottom="@dimen/_20sdp"/>
