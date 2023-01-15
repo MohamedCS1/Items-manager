@@ -42,13 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
-            android:text="P-Scanner lets you scan QR codes\n for products and add prices\n
-and product details and display\n them at any time."
+            android:text="Application for items management (add, delete, edit) \nby camera and barcodes\nYou can now store any product or service in different details \nand access it in a split second by scanning the barcode on camera ."
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
+            android:padding="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
         <TextView
             android:id="@+id/bu_start"

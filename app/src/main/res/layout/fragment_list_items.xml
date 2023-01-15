@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="No item found"
         android:textSize="@dimen/_13ssp"
-        android:textColor="#A9000000"
+        android:textColor="#4F000000"
         android:textStyle="bold"
         android:layout_gravity="center"/>
 

@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
 
         setFragment(scanningFragment)
 
-        binding.buScanner.setOnClickListener {
-            binding.buScanner.setBackgroundResource(R.drawable.background_bu_scanner)
-            binding.buScanner.setColorFilter(Color.parseColor("#5A6CF3"))
+        binding.buAddItem.setOnClickListener {
+            binding.buAddItem.setBackgroundResource(R.drawable.background_bu_scanner)
+            binding.buAddItem.setColorFilter(Color.parseColor("#5A6CF3"))
             binding.buListProducts.setBackgroundColor(android.R.color.transparent)
             binding.buListProducts.setColorFilter(Color.parseColor("#BBBBBB"))
             binding.buSearch.setBackgroundColor(android.R.color.transparent)
@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         binding.buListProducts.setOnClickListener {
             binding.buListProducts.setBackgroundResource(R.drawable.background_radius_second_color)
             binding.buListProducts.setColorFilter(Color.parseColor("#F08F5F"))
-            binding.buScanner.setBackgroundColor(android.R.color.transparent)
-            binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))
+            binding.buAddItem.setBackgroundColor(android.R.color.transparent)
+            binding.buAddItem.setColorFilter(Color.parseColor("#BBBBBB"))
             binding.buSearch.setBackgroundColor(android.R.color.transparent)
             binding.buSearch.setColorFilter(Color.parseColor("#BBBBBB"))
             setFragment(listItemsFragment)
@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
         binding.buSearch.setOnClickListener {
             binding.buSearch.setBackgroundResource(R.drawable.background_bu_search)
             binding.buSearch.setColorFilter(Color.parseColor("#2DC0FF"))
-            binding.buScanner.setBackgroundColor(android.R.color.transparent)
-            binding.buScanner.setColorFilter(Color.parseColor("#BBBBBB"))
+            binding.buAddItem.setBackgroundColor(android.R.color.transparent)
+            binding.buAddItem.setColorFilter(Color.parseColor("#BBBBBB"))
             binding.buListProducts.setBackgroundColor(android.R.color.transparent)
             binding.buListProducts.setColorFilter(Color.parseColor("#BBBBBB"))
             setFragment(searchFragment)

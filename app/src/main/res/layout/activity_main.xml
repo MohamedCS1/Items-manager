@@ -36,14 +36,14 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/bu_scanner"
+                android:id="@+id/bu_add_item"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
                 android:background="@drawable/background_bu_scanner"
-                android:padding="@dimen/_8sdp"
-                android:src="@drawable/icon_scanner"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_add"
                 app:tint="@color/my_purple" />
         </LinearLayout>
 
