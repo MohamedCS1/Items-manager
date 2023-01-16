@@ -1,5 +1,6 @@
 package com.example.p_scanner.ui.addOrEditItems
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
     lateinit var repository: Repository
     var itemBarCode: String? = null
     var item:Item? = null
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddAndEditItemBinding.inflate(layoutInflater)
