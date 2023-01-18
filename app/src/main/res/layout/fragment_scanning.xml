@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:background="#E5E5E5">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Barcode"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20ssp"
+        android:background="@drawable/line"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
+
+
     <ImageView
         android:id="@+id/buTorch"
         android:layout_width="@dimen/_40sdp"
@@ -69,7 +81,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_4sdp"
                     android:background="@color/colorPrimary" />
-
 
             </LinearLayout>
 

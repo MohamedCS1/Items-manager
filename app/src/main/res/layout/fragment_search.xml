@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:background="#E5E5E5"
     tools:context=".ui.searching.SearchFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan the barcode"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20ssp"
+        android:background="@drawable/line"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
     <ImageView
         android:id="@+id/buTorch"
         android:layout_width="@dimen/_50sdp"
