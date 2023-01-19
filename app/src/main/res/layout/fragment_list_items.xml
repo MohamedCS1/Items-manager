@@ -8,6 +8,7 @@
     tools:context=".ui.listItems.ListItemsFragment">
 
     <TextView
+        android:id="@+id/TextViewNoItemFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No item found"
@@ -45,7 +46,7 @@
                 android:backgroundTint="#FFFFFF"
                 app:defaultQueryHint="title or price"
                 android:textColor="@color/black"
-                app:theme="@style/AppTheme.Toolbar"
+                app:theme="@style/SearchViewTheme"
                 >
 
             </SearchView>

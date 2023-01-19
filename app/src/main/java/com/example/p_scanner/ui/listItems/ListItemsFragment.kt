@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class ListItemsFragment : Fragment() {
     lateinit var productViewModel:ProductViewModel
     lateinit var searchView:SearchView
     lateinit var arrayOfItems:ArrayList<Item>
+    lateinit var textViewNoItemFound:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
@@ -39,6 +41,10 @@ class ListItemsFragment : Fragment() {
 
         productViewModel.listItemsLiveData.observe(this,object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
+                if ((listItems?.size ?: 0) > 0)
+                {
+                    textViewNoItemFound.visibility = View.INVISIBLE
+                }
                 adapter.setList(listItems!! as ArrayList<Item>)
                 arrayOfItems = listItems as ArrayList<Item>
             }
@@ -79,6 +85,7 @@ class ListItemsFragment : Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.rv_items)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
+        textViewNoItemFound = view.findViewById(R.id.TextViewNoItemFound)
         searchView = view.findViewById(R.id.searchView)
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -90,6 +97,8 @@ class ListItemsFragment : Fragment() {
                 return true
             }
         })
+        searchView.queryHint = "Search by title or price"
+
         return view
     }
 
