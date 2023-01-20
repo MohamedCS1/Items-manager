@@ -5,15 +5,10 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -87,7 +82,7 @@ class ListItemsFragment : Fragment() {
             }
         })
 
-//        buttonMenu.setOnClickListener {}
+
 
     }
 
@@ -114,7 +109,12 @@ class ListItemsFragment : Fragment() {
             }
         })
         searchView.queryHint = "Search by title or price"
-
+        val showPopUp = PopupMenu(requireContext() ,buttonMenu)
+        showPopUp.menu.add(Menu.NONE, 0, 0, "Export database as CSV file")
+        showPopUp.menu.add(Menu.NONE, 1, 1, "Import database as CSV file")
+        buttonMenu.setOnClickListener {
+            showPopUp.show()
+        }
         return view
     }
 

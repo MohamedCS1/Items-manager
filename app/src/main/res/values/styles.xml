@@ -7,6 +7,7 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
     <style name="TransparentBackgroundDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
@@ -17,12 +18,11 @@
         <item name="android:textColorHint">#7A000000</item>
     </style>
 
-
-
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:buttonBarButtonStyle">@style/MyButtonsStyle</item>
         <item name="android:colorBackground">@color/white</item>
     </style>
+
 
     <style name="MyButtonsStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/my_purple</item>

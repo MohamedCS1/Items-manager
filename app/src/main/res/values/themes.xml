@@ -12,7 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimary</item>
         <item name="fontFamily">@font/latobold</item>
-        <!-- Customize your theme here. -->
+
+        <item name="android:textColor">@color/black</item>
+        <item name="popupMenuBackground">@color/white</item>
     </style>
 
     <style name="ThemeOverlay.PScanner.FullscreenContainer" parent="">
