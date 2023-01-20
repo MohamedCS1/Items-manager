@@ -1,11 +1,16 @@
 package com.example.p_scanner.ui.listItems
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.TextView
@@ -30,6 +35,7 @@ class ListItemsFragment : Fragment() {
     lateinit var searchView:SearchView
     lateinit var arrayOfItems:ArrayList<Item>
     lateinit var textViewNoItemFound:TextView
+    lateinit var buttonMenu:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
@@ -67,12 +73,21 @@ class ListItemsFragment : Fragment() {
                     bottomSheetDialog.hide()
                 }
                 buDelete?.setOnClickListener {
-                    repository.deleteItemById(item.id)
-                    bottomSheetDialog.hide()
+                    AlertDialog.Builder(requireContext(), R.style.MyDialogTheme).setMessage("Are you sure to delete this item ?").setPositiveButton("Yes" ,object:DialogInterface.OnClickListener{
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            repository.deleteItemById(item.id)
+                            bottomSheetDialog.hide()
+                        }
+                    }).setNegativeButton("No",object:DialogInterface.OnClickListener{
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                        }
+                    }).show()
                 }
             }
         })
 
+//        buttonMenu.setOnClickListener {}
 
     }
 
@@ -87,6 +102,7 @@ class ListItemsFragment : Fragment() {
         rv.adapter = adapter
         textViewNoItemFound = view.findViewById(R.id.TextViewNoItemFound)
         searchView = view.findViewById(R.id.searchView)
+        buttonMenu = view.findViewById(R.id.buMenu)
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true

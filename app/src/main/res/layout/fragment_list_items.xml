@@ -36,20 +36,36 @@
             android:layout_marginRight="@dimen/_5sdp"
 
             >
-            <SearchView
-                android:id="@+id/searchView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/background_button_orange"
-                android:backgroundTint="#FFFFFF"
-                app:defaultQueryHint="title or price"
-                android:textColor="@color/black"
-                app:theme="@style/SearchViewTheme"
-                >
+                android:orientation="horizontal">
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/background_button_orange"
+                    android:backgroundTint="#FFFFFF"
+                    app:defaultQueryHint="title or price"
+                    android:textColor="@color/black"
+                    app:theme="@style/SearchViewTheme"
+                    android:layout_weight="1"
+                    />
 
-            </SearchView>
+                <ImageView
+                    android:id="@+id/buMenu"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="@drawable/ic_vertical_dots"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:tint="@color/black"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
