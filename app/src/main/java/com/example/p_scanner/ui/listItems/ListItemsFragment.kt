@@ -1,14 +1,14 @@
 package com.example.p_scanner.ui.listItems
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +22,8 @@ import com.example.p_scanner.repository.Repository
 import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
+
 
 class ListItemsFragment : Fragment() {
     lateinit var adapter: ItemsAdapter
@@ -37,8 +39,6 @@ class ListItemsFragment : Fragment() {
 
         adapter = ItemsAdapter()
         repository = Repository(ItemsDatabase.getDatabase(requireContext()).itemDAO())
-
-
 
         productViewModel.listItemsLiveData.observe(this,object :Observer<List<Item>>{
             override fun onChanged(listItems: List<Item>?) {
@@ -82,10 +82,7 @@ class ListItemsFragment : Fragment() {
             }
         })
 
-
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,13 +106,44 @@ class ListItemsFragment : Fragment() {
             }
         })
         searchView.queryHint = "Search by title or price"
-        val showPopUp = PopupMenu(requireContext() ,buttonMenu)
-        showPopUp.menu.add(Menu.NONE, 0, 0, "Export database as CSV file")
-        showPopUp.menu.add(Menu.NONE, 1, 1, "Import database as CSV file")
+        val popUpMenu = PopupMenu(requireContext() ,buttonMenu)
+        popUpMenu.menu.add(Menu.NONE, 0, 0, "Export database as CSV file")
+        popUpMenu.menu.add(Menu.NONE, 1, 1, "Import database as CSV file")
+
         buttonMenu.setOnClickListener {
-            showPopUp.show()
+            popUpMenu.show()
         }
+
+        popUpMenu.setOnMenuItemClickListener(object :PopupMenu.OnMenuItemClickListener{
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                if (item!!.itemId == 0)
+                {
+                    createFileInDownloads()
+                    Toast.makeText(requireContext() ,"Export" ,Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    Toast.makeText(requireContext() ,"Import" ,Toast.LENGTH_SHORT).show()
+                }
+                return true
+            }
+        })
         return view
+    }
+
+    fun createFileInDownloads()
+    {
+        try {
+            val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val fileName = "log.csv"
+            val file = File("$path/$fileName")
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 }
