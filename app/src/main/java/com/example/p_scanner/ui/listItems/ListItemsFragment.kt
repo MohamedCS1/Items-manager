@@ -22,7 +22,12 @@ import com.example.p_scanner.repository.Repository
 import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.opencsv.CSVWriter
+import java.io.BufferedReader
 import java.io.File
+import java.io.FileWriter
+import java.io.StringWriter
+import java.nio.file.Paths
 
 
 class ListItemsFragment : Fragment() {
@@ -135,11 +140,24 @@ class ListItemsFragment : Fragment() {
     {
         try {
             val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val fileName = "log.csv"
+            val fileName = "test.csv"
             val file = File("$path/$fileName")
             if (!file.exists()) {
                 file.createNewFile()
             }
+
+
+            val outPutFile = FileWriter(file)
+            val writer = CSVWriter(outPutFile)
+
+            writer.writeNext(arrayOf("id" ,"title" ,"description" ,"price"))
+
+            for (item in arrayOfItems)
+            {
+                val currentArray = arrayOf(item.id ,item.title ,item.description ,item.price)
+                writer.writeNext(currentArray)
+            }
+            writer.close()
 
         } catch (e: Exception) {
             e.printStackTrace()
