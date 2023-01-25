@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
-            android:text="Application enables you to organize any items containing Qr code \n"
+            android:text="Application enables you to organize any items containing Qr code \nProvides you with database for (description, storage, editing, deletion and search) items\n All this by phone camera only"
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
