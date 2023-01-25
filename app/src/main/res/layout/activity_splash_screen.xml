@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
-            android:text="Application for items management (add, delete, edit) \nby camera and barcodes\nYou can now store any product or service in different details \nand access it in a split second by scanning the barcode on camera ."
+            android:text="Application enables you to organize any items containing Qr code \n"
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp"
             android:padding="@dimen/_10sdp"
