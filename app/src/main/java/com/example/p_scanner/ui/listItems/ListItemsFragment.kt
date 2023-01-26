@@ -182,6 +182,7 @@ class ListItemsFragment : Fragment()  {
                     writer.writeNext(currentArray)
                 }
                 writer.close()
+                NotificationsUtils(requireContext()).displayNotification()
             }
             else
             {
