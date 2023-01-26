@@ -28,18 +28,17 @@
 
         <activity
             android:name=".ui.splashScreen.SplashScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="@string/title_activity_splash_screen">
-        </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="true" >
         </activity>
     </application>
 

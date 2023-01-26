@@ -8,11 +8,15 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.p_scanner.ui.listItems.ListItemsFragment
 import com.example.p_scanner.R
+import com.example.p_scanner.Utils.IntentUtils
+import com.example.p_scanner.Utils.RequestCodes
 import com.example.p_scanner.ui.scanning.ScanningFragment
 import com.example.p_scanner.ui.searching.SearchFragment
 import com.example.p_scanner.databinding.ActivityMainBinding
@@ -89,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == 0)
+        if (requestCode == RequestCodes.camera)
         {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
@@ -97,7 +101,19 @@ class MainActivity : AppCompatActivity() {
             }
             else if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED)
             {
-                intentToSettings()
+                IntentUtils(this).intentToSettings()
+            }
+
+        }
+        else if (requestCode == RequestCodes.storage)
+        {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                return
+            }
+            else if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED)
+            {
+                IntentUtils(this).intentToSettings()
             }
 
         }
@@ -106,17 +122,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, arrayOf(android.Manifest.permission.CAMERA).toString()) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), RequestCodes.camera)
         }
-    }
-
-    fun intentToSettings()
-    {
-
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        val uri = Uri.fromParts("package", packageName, null)
-        intent.data = uri
-        startActivity(intent)
     }
 
 }
