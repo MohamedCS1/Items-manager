@@ -2,6 +2,8 @@ package com.example.p_scanner.pojo
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.OnConflictStrategy
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.PrimaryKey
 import java.io.Serializable
 

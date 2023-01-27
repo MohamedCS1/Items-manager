@@ -24,6 +24,7 @@ import com.example.p_scanner.database.ItemsDatabase
 import com.example.p_scanner.interfaces.ItemClickListener
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemInteractions
+import com.example.p_scanner.pojo.ItemType
 import com.example.p_scanner.repository.Repository
 import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.viewmodels.ProductViewModel
@@ -44,6 +45,7 @@ class ListItemsFragment : Fragment()  {
     var arrayOfItems:ArrayList<Item>? = null
     lateinit var textViewNoItemFound:TextView
     lateinit var buttonMenu:ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         productViewModel = ProductViewModel(requireContext())
@@ -159,7 +161,6 @@ class ListItemsFragment : Fragment()  {
     fun exportDatabaseAsCSVFile()
     {
         try {
-
             if (arrayOfItems?.size != 0)
             {
                 val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -172,12 +173,12 @@ class ListItemsFragment : Fragment()  {
                 val outPutFile = FileWriter(file)
                 val writer = CSVWriter(outPutFile)
 
-                val header = arrayOf("id" ,"title" ,"description" ,"price")
+                val header = arrayOf("id" ,"title" ,"description" ,"price" ,"type")
                 writer.writeNext(header)
 
                 for (item in arrayOfItems!!)
                 {
-                    val currentArray = arrayOf(item.id ,item.title ,item.description ,item.price)
+                    val currentArray = arrayOf(item.id ,item.title ,item.description ,item.price ,item.type.name)
                     writer.writeNext(currentArray)
                 }
                 writer.close()
@@ -200,19 +201,37 @@ class ListItemsFragment : Fragment()  {
         startActivityForResult(Intent.createChooser(intent, "Open CSV"),RequestCodes.geCsvFile)
     }
 
-    fun readCSVFileAndAddItemsToDatabase(uri: Uri)
+    fun dialogIntegrateOrDeleteData(uri: Uri)
     {
+        AlertDialog.Builder(requireContext(), R.style.MyDialogTheme).setMessage("Want to delete old data or integrate ?").setPositiveButton("Integrate" ,object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                readCSVFileAndAddItemsToDatabase(uri ,"Integrate")
+            }
+        }).setNegativeButton("Delete",object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                readCSVFileAndAddItemsToDatabase(uri ,"Delete")
+            }
+        }).show()
+    }
+    fun readCSVFileAndAddItemsToDatabase(uri: Uri ,integrateOrDelete:String)
+    {
+
         val filepath = uri?.path!!.substring(uri.path!!.indexOf(":")+1)
 
         val file = File(filepath)
         if (file.extension == "csv")
         {
+            if (integrateOrDelete == "Delete")
+            {
+                repository.clearDatabase()
+            }
             val outPutFile = FileReader(file)
             val csvReader = CSVReader(outPutFile)
             val arrayOfItems = csvReader.readAll()
             arrayOfItems.forEach{
                 if (it.size == 4)
                 {
+                    repository.insertItem(Item(it[0] ,it[1] ,it[2] ,it[3] ,ItemType.SERVICE))
                     Log.d("csvRead" ,it[0].toString() +"/"+ it[1] +"/"+ it[2] +"/"+ it[3])
                 }
                 else
@@ -242,7 +261,9 @@ class ListItemsFragment : Fragment()  {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RequestCodes.geCsvFile) {
             val uri: Uri? = data?.data
-            readCSVFileAndAddItemsToDatabase(uri!!)
+            if (uri != null) {
+                dialogIntegrateOrDeleteData(uri)
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

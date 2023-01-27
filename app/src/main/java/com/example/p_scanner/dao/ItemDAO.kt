@@ -1,17 +1,14 @@
 package com.example.p_scanner.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.p_scanner.pojo.Item
 import com.example.p_scanner.pojo.ItemType
 
 @Dao
 interface ItemDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertItem(item: Item)
 
     @Query("select * from ItemsTable")
@@ -28,4 +25,7 @@ interface ItemDAO {
 
     @Query("update ItemsTable set title=:newTitle, description=:newDescription ,price=:newPrice ,type=:newType where id =:id")
     fun updateItemById(id:String ,newTitle:String ,newDescription:String ,newPrice:String ,newType:ItemType)
+
+    @Query("delete from ItemsTable")
+    fun clearDatabase()
 }

@@ -44,4 +44,11 @@ class Repository(itemDAO: ItemDAO) {
             itemDao.updateItemById(id ,newTitle ,newDescription ,newPrice ,newType)
         }
     }
+
+    fun clearDatabase()
+    {
+        GlobalScope.launch {
+            itemDao.clearDatabase()
+        }
+    }
 }
