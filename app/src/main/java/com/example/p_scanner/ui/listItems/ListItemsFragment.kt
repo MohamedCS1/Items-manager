@@ -4,12 +4,9 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -31,8 +28,10 @@ import com.example.p_scanner.repository.Repository
 import com.example.p_scanner.ui.addOrEditItems.AddAndEditItemActivity
 import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
 import java.io.File
+import java.io.FileReader
 import java.io.FileWriter
 
 
@@ -148,7 +147,7 @@ class ListItemsFragment : Fragment()  {
                 }
                 else
                 {
-                    importDatabaseAsCSV()
+                    importDatabaseAsCSVFile()
                     Toast.makeText(requireContext() ,"Import" ,Toast.LENGTH_SHORT).show()
                 }
                 return true
@@ -193,12 +192,45 @@ class ListItemsFragment : Fragment()  {
         }
     }
 
-    fun importDatabaseAsCSV()
+    fun intentToPickFile()
     {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        val uri: Uri = Uri.parse(Environment.getExternalStorageDirectory().path)
-        intent.setDataAndType(uri, "text/csv")
+        val intent =  Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.type = "*/*";
         startActivityForResult(Intent.createChooser(intent, "Open CSV"),RequestCodes.geCsvFile)
+    }
+
+    fun readCSVFileAndAddItemsToDatabase(uri: Uri)
+    {
+        val filepath = uri?.path!!.substring(uri.path!!.indexOf(":")+1)
+
+        val file = File(filepath)
+        if (file.extension == "csv")
+        {
+            val outPutFile = FileReader(file)
+            val csvReader = CSVReader(outPutFile)
+            val arrayOfItems = csvReader.readAll()
+            arrayOfItems.forEach{
+                if (it.size == 4)
+                {
+                    Log.d("csvRead" ,it[0].toString() +"/"+ it[1] +"/"+ it[2] +"/"+ it[3])
+                }
+                else
+                {
+                    Toast.makeText(requireContext() ,"This is not a database exported from this application",Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+        else
+        {
+            Toast.makeText(requireContext() ,"This file is not csv ,please try again",Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun importDatabaseAsCSVFile()
+    {
+        intentToPickFile()
     }
 
     private fun checkStoragePermission() {
@@ -210,18 +242,7 @@ class ListItemsFragment : Fragment()  {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RequestCodes.geCsvFile) {
             val uri: Uri? = data?.data
-
-//            val file = File(filePath)
-//            if (file.extension == "csv")
-//            {
-//                val outPutFile = FileReader(file)
-//                val csvReader = CSVReader(outPutFile)
-//                Log.d("csvRead" ,csvReader.readAll().toString())
-//            }
-//            else
-//            {
-//                Toast.makeText(requireContext() ,"This file is not csv ,please try again",Toast.LENGTH_SHORT).show()
-//            }
+            readCSVFileAndAddItemsToDatabase(uri!!)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

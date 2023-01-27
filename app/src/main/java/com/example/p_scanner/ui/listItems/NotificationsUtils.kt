@@ -15,9 +15,9 @@ import com.example.p_scanner.R
 
 class NotificationsUtils(val context: Context) {
 
+
     private val channelId = "1"
     private val notificationId = 1
-
      fun displayNotification() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -38,9 +38,9 @@ class NotificationsUtils(val context: Context) {
 
          val pendingIntent = PendingIntent.getActivities(context ,0 , arrayOf(intent),0)
 
-        notification.setSmallIcon(R.drawable.ic_launcher_foreground)
+        notification.setSmallIcon(R.mipmap.ic_launcher)
             .setStyle(NotificationCompat.BigTextStyle())
-            .setContentTitle("Exported successfully")
+            .setContentTitle("Database exported successfully")
             .setContentIntent(pendingIntent)
 
         notificationManager.notify(notificationId ,notification.build())
