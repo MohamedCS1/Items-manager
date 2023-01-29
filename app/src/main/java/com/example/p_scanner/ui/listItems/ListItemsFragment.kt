@@ -173,9 +173,6 @@ class ListItemsFragment : Fragment()  {
                 val outPutFile = FileWriter(file)
                 val writer = CSVWriter(outPutFile)
 
-                val header = arrayOf("id" ,"title" ,"description" ,"price" ,"type")
-                writer.writeNext(header)
-
                 for (item in arrayOfItems!!)
                 {
                     val currentArray = arrayOf(item.id ,item.title ,item.description ,item.price ,item.type.name)
@@ -213,6 +210,7 @@ class ListItemsFragment : Fragment()  {
             }
         }).show()
     }
+
     fun readCSVFileAndAddItemsToDatabase(uri: Uri ,integrateOrDelete:String)
     {
 
@@ -227,16 +225,16 @@ class ListItemsFragment : Fragment()  {
             }
             val outPutFile = FileReader(file)
             val csvReader = CSVReader(outPutFile)
-            val arrayOfItems = csvReader.readAll()
+            val arrayOfItems = csvReader.readAll() as ArrayList<Item>
             arrayOfItems.forEach{
-                if (it.size == 4)
+                if (arrayOfItems.size == 4)
                 {
-                    repository.insertItem(Item(it[0] ,it[1] ,it[2] ,it[3] ,ItemType.SERVICE))
-                    Log.d("csvRead" ,it[0].toString() +"/"+ it[1] +"/"+ it[2] +"/"+ it[3])
+                    repository.insertItem(Item(it.id ,it.title ,it.description ,it.price ,it.type))
+//                    Log.d("csvRead" ,it[0].toString() +"/"+ it[1] +"/"+ it[2] +"/"+ it[3])
                 }
                 else
                 {
-                    Toast.makeText(requireContext() ,"This is not a database exported from this application",Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext() ,"This is not a csv exported from this application",Toast.LENGTH_LONG).show()
                 }
             }
 
