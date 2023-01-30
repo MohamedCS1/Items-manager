@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
+import android.provider.MediaStore
 import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.PopupMenu
@@ -31,9 +31,7 @@ import com.example.p_scanner.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
+import java.io.*
 
 
 class ListItemsFragment : Fragment()  {
@@ -173,6 +171,8 @@ class ListItemsFragment : Fragment()  {
                 val outPutFile = FileWriter(file)
                 val writer = CSVWriter(outPutFile)
 
+                val header = arrayOf("id" ,"title" ,"description" ,"price" ,"type")
+                writer.writeNext(header)
                 for (item in arrayOfItems!!)
                 {
                     val currentArray = arrayOf(item.id ,item.title ,item.description ,item.price ,item.type.name)
@@ -213,8 +213,9 @@ class ListItemsFragment : Fragment()  {
 
     fun readCSVFileAndAddItemsToDatabase(uri: Uri ,integrateOrDelete:String)
     {
-
-        val filepath = uri?.path!!.substring(uri.path!!.indexOf(":")+1)
+        val inputStream = requireContext().getContentResolver().openInputStream(uri);
+        val r = BufferedReader(InputStreamReader(inputStream))
+        val filepath = uri.path!!.substring(uri.path!!.indexOf(":")+1)
 
         val file = File(filepath)
         if (file.extension == "csv")
@@ -223,14 +224,18 @@ class ListItemsFragment : Fragment()  {
             {
                 repository.clearDatabase()
             }
-            val outPutFile = FileReader(file)
-            val csvReader = CSVReader(outPutFile)
-            val arrayOfItems = csvReader.readAll() as ArrayList<Item>
-            arrayOfItems.forEach{
-                if (arrayOfItems.size == 4)
+            val csvReader = CSVReader(r)
+            val arrayOfItems = csvReader.readAll()
+            var isHeader = true
+            arrayOfItems.forEach l@{
+                if (it.size == 5)
                 {
-                    repository.insertItem(Item(it.id ,it.title ,it.description ,it.price ,it.type))
-//                    Log.d("csvRead" ,it[0].toString() +"/"+ it[1] +"/"+ it[2] +"/"+ it[3])
+                if (isHeader)
+                {
+                    isHeader = false
+                    return@l
+                }
+                    repository.insertItem(Item(it[0] ,it[1] ,it[2] ,it[3] , ItemType.valueOf(it[4])))
                 }
                 else
                 {
