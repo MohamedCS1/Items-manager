@@ -228,19 +228,19 @@ class ListItemsFragment : Fragment()  {
             val arrayOfItems = csvReader.readAll()
             var isHeader = true
             arrayOfItems.forEach l@{
-                if (it.size == 5)
+                if (arrayOfItems.first().size != 5)
                 {
+                    Toast.makeText(requireContext() ,it.first().length.toString(),Toast.LENGTH_LONG).show()
+                    return
+                }
+
                 if (isHeader)
                 {
                     isHeader = false
                     return@l
                 }
-                    repository.insertItem(Item(it[0] ,it[1] ,it[2] ,it[3] , ItemType.valueOf(it[4])))
-                }
-                else
-                {
-                    Toast.makeText(requireContext() ,"This is not a csv exported from this application",Toast.LENGTH_LONG).show()
-                }
+
+                repository.insertItem(Item(it[0] ,it[1] ,it[2] ,it[3] , ItemType.valueOf(it[4])))
             }
 
         }
