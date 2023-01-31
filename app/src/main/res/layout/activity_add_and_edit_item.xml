@@ -96,8 +96,8 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:textColor="#3A3C3F"/>
 
-        <EditText
-            android:id="@+id/et_id"
+        <TextView
+            android:id="@+id/tv_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_bu_scanner"

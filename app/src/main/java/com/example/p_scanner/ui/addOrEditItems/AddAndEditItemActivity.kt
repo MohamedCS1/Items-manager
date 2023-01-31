@@ -46,7 +46,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
 
         if (item != null && interactions == ItemInteractions.EDIT)
         {
-            binding.etId.setText(item!!.id)
+            binding.tvId.text = item!!.id
             binding.etTitle.setText(item?.title?:"No Name")
             binding.etDescription.setText(item?.description?:"No Description")
             binding.etPrice.setText(item?.price?:"No Price")
@@ -59,7 +59,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
             }
         }else if (itemBarCode != "" && interactions == ItemInteractions.ADD)
         {
-            binding.etId.setText(itemBarCode)
+            binding.tvId.text = itemBarCode
         }
 
         binding.buBack.setOnClickListener {
@@ -85,7 +85,7 @@ class AddAndEditItemActivity : AppCompatActivity() {
         binding.buAddOrEditItem.setOnClickListener {
             if (interactions == ItemInteractions.ADD)
             {
-                productViewModel.itemLiveData.value = Item(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+                productViewModel.itemLiveData.value = Item(binding.tvId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
                 productViewModel.itemAddedLiveData.observeForever(object:Observer<Boolean>{
                     override fun onChanged(isAdded: Boolean?) {
                         if (isAdded == false)
@@ -101,9 +101,9 @@ class AddAndEditItemActivity : AppCompatActivity() {
                 })
             }else if (interactions == ItemInteractions.EDIT)
             {
-                if (binding.etId.text.toString().isNotBlank() && binding.etTitle.text.toString().isNotBlank() && binding.etDescription.text.toString().isNotBlank() && binding.etPrice.text.toString().isNotBlank())
+                if (binding.tvId.text.toString().isNotBlank() && binding.etTitle.text.toString().isNotBlank() && binding.etDescription.text.toString().isNotBlank() && binding.etPrice.text.toString().isNotBlank())
                 {
-                    repository.updateItemById(binding.etId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
+                    repository.updateItemById(binding.tvId.text.toString() ,binding.etTitle.text.toString() ,binding.etDescription.text.toString() ,binding.etPrice.text.toString() ,itemType)
                     finish()
                 }
                 else{
