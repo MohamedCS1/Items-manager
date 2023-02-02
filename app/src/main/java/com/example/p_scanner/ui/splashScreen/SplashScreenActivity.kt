@@ -11,7 +11,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     lateinit var binding:ActivitySplashScreenBinding
 
-    val sharedPreference: SharedPreference by lazy{
+    private val sharedPreference: SharedPreference by lazy{
         SharedPreference(this)
     }
 
