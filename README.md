@@ -1,1 +1,1 @@
-
+Items manager an application that allows you to store, retrieve, modify, and delete the information of anything that contains a barcode at any time ,You can also import or export your items as a csv file.
